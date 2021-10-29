@@ -1,0 +1,98 @@
+<!-- <app-user-dashboard *ngIf="toggleDash"></app-user-dashboard> -->
+<app-user-dashboard [someInput]="randomInputCount"></app-user-dashboard>
+
+
+<div class="">
+    <br>
+    <h1 class="text-center" style="font-size: 2rem;font-weight: bold;color:darkgrey; font-family: cursive;">Checkout Page</h1>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-2 offset-1">
+            <h1 class="text-primary">Your Cart (<span style="font-weight: bold;">{{itemsInCart.length}}</span>)</h1>
+        </div>
+        <div class="col-2 offset-5">
+            <h1 class="text-primary">Order Details</h1>
+        </div>
+    </div>
+
+    <div class="row offset-1">
+
+        <div class="col-7" style="height: 300px;overflow: auto;padding: 30px;padding-top: 20px;box-shadow: 0px 0px 10px 1px grey;">
+            <table class="table" style="box-shadow: 0px 0px 20px 2px gray;">
+                <thead class="sticky-top" style="top:-20px;text-align: center;background-color: cornsilk;">
+                    <th align="center" style="text-align: center;color: black;font-weight: 100;">PRODUCT</th>
+                    <th align="right" style="color: black;font-weight: 100;text-align: right;">PRICE</th>
+                    <th style="color: black;font-weight: 100;">QUANTITY</th>
+                    <th align="right" style="text-align: right;color: black;font-weight: 100;">TOTAL</th>
+                </thead>
+                <tbody style="text-align: center;">
+                    <ng-template ngFor let-item [ngForOf]="filteredItemsIncart" let-i="index">
+                        <tr  style="vertical-align: middle;">
+                            <td align="left">
+                                <table class="table table-borderless" style="text-align: left;">
+                                    <tr style="vertical-align: middle;">
+                                        <td width="125px">
+                                            <img [src]="item.itemImageUrl" width="120px" height="100px">
+                                        </td>
+                                        <td style="font-weight: bold;">
+                                            <div class="offset-1">
+                                                {{item.itemName}}
+                                                <br><br>
+                                                <span style="color: gray;font-weight: 100;">Category: {{item.itemCategory}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td align="right" style="font-weight: bold;"><span style="font-weight: 350;">&#8377; </span>{{item.unitPrice}}</td>
+                            <td align="center">
+                                <div style="box-shadow: 0px 0px 5px 1px gray;width: fit-content;">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td><button class="btn" (click)="decreaseItemQuan(item,item.itemId)"><span>&#9664;</span></button></td>
+                                                <td style="vertical-align: middle;">{{getDuplicateItemQuantityInCart(item.itemId)}}</td>
+                                                <td><button class="btn" (click)="increaseItemQuan(item,item.itemId)"><span>&#9654;</span></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                            <td style="font-weight: bold;" align="right"><span style="font-weight: lighter;">&#8377;</span> {{item.unitPrice*getDuplicateItemQuantityInCart(item.itemId)}}</td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-5">
+            <div class="container">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr style="font-size: 50px;"><td style="padding: 30px;" colspan="2">Order Total</td></tr>
+                        <tr>
+                            <td style="font-weight: bold;">Total No of Items</td>
+                            <td class="text-primary">{{itemsInCart.length}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Total Amount</td>
+                            <td class="text-primary" style="font-weight: bold;">&#8377; {{getOrderTotal()}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <br>
+                <a routerLink="/user/payment" class="btn btn-primary {{getButtonStatus()}}" style="text-align: center;font-size: 40px;">Make Payment ></a>
+
+            </div>
+        </div>
+    </div>
+    
+    
+
+</div>
+<br>
+<br>
+<br>

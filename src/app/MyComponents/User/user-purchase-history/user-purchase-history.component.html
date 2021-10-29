@@ -1,0 +1,59 @@
+<app-user-dashboard></app-user-dashboard>
+
+<div style="background-color: rgb(228, 243, 255);padding-top: 60px;">
+<h1 style="text-align: center;color: gray;font-weight: bold;font-size: 40px;">All Purchases</h1>
+<br>
+<h1 *ngIf="listOfPurchases==null||listOfPurchases.length==0" class="text-danger" style="margin-top: 30px; text-align: center;">No Purchases Found<br> on your Account...</h1>
+
+    <div class="container" style="padding: 30px;">
+        <ng-template let-purchase ngFor [ngForOf]="listOfPurchases" let-i="index">
+            <div class="col-8 offset-2">
+                <div style="margin: 15px;">
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <h1 class="text-secondary" style="margin-top: 20px;font-size: 15px;font-weight: bold;">Order Id - {{purchase.id}} || Order Date - {{purchase.purchaseDate}}</h1>
+                        </mat-expansion-panel-header>
+
+                        <table class="table table-bordered" style="box-shadow: 0px 0px 10px 4px gray;">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: center;font-size: 17px;color: rgb(105, 105, 105);">Order Id</th>
+                                    <td><b>{{purchase.id}}</b></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" style="text-align: center;font-size: 17px;color: rgb(105, 105, 105);">Order Date</th>
+                                    <td><b>{{purchase.purchaseDate}}</b></td>
+                                </tr>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Item Company</th>
+                                    <th>Item Category</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Unit Price * Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of purchase.itemList|distnctParaFilter:'itemId'">
+                                    <td>{{item.itemName}}</td>
+                                    <td>{{item.itemCompany}}</td>
+                                    <td>{{item.itemCategory}}</td>
+                                    <td>{{getDuplicateItemQuantity(item.itemId,i)}}</td>
+                                    <td>&#8377; {{item.unitPrice}}</td>
+                                    <td>&#8377; {{getDuplicateItemQuantity(item.itemId,i)*item.unitPrice}}</td>
+                                </tr>
+                                <tr style="border-top: black dotted 2px;">
+                                    <th colspan="5" style="text-align: center;font-size: 25px;">Total Amount Paid</th>
+                                    <td style="font-size: 20px;font-weight: bold;background-color: rgb(211, 207, 207);">&#8377; {{getTotalCost(i)}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </mat-expansion-panel>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+
+</div>

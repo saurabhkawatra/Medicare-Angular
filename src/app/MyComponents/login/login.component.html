@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<div align="center">
+    <div style="margin-top: 100px;border: solid 1px darkgrey;border-radius: 10px; padding:50px;padding-bottom: 20px; width:800px;background-color: ghostwhite;box-shadow: 0px 0px 20px 20px darkgrey;">
+        <h1 class="text-primary" style="font-size: 50px; margin-bottom: 30px;">Login</h1>
+        <form (ngSubmit)="signinclick()">
+        <mat-form-field appearance="fill" style="width: 600px;">
+            <mat-label>Username</mat-label>
+            <input (click)="resetLoginStatus()" matInput [(ngModel)]="data.username" required name="nameforusername">
+        </mat-form-field><br>
+        <mat-form-field appearance="fill" style="width: 600px;">
+            <mat-label>Password</mat-label>
+            <input (click)="resetLoginStatus()" type="password" [(ngModel)]="data.password" required name="nameforpassword" matInput>
+        </mat-form-field><br>
+        <h2 *ngIf="loginFail=='true'" class="text-danger" style="font-weight: bold;font-family: Courier;">Login Authentication Failed</h2>
+        <button mat-raised-button color="primary" type="submit" style="height: 60px;width: 200px;font-size: 30px;">Sign In</button>
+        </form>
+        <br><br><hr>
+        <h3 style="text-align: right;">New User - <a routerLink="/register">Register Here</a></h3>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

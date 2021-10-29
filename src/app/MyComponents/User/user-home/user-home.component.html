@@ -1,0 +1,52 @@
+<!-- <app-user-dashboard *ngIf="dashboardToggle"></app-user-dashboard> -->
+<app-user-dashboard [someInput]="giveSomeInput"></app-user-dashboard>
+
+<div class="">
+        <div class="row">
+                    <div class="col-3" style="border-right: 1px solid lightgray;">
+
+                        <div align="left" style="font-size: 0.7rem;margin-left: 10%;">
+                                    <p>*Filter Items based on category*</p>
+                                    <select [(ngModel)]="filterCriterea"  style="width:70%;" class="form-select">
+                                        <option value="">Category (Default No Filter)</option>
+                                        <option *ngFor="let item of itemList | distinctFilter |sort :'itemCategory':'asc'" [value]="item.itemCategory">{{item.itemCategory}}</option>
+                                    </select>
+                        </div>
+                        <hr>
+                        <div align="left" style="font-size: 0.7rem;margin-left: 10%;">
+                                    <p>*Filter Items based on category*</p>
+                                    <select [(ngModel)]="fwCompany"  style="width:70%;" class="form-select">
+                                        <option value="">Company (Default No Filter)</option>
+                                        <option *ngFor="let item of itemList| distnctParaFilter:'itemCompany' | sort :'itemCompany':'asc'" [value]="item.itemCompany">{{item.itemCompany}}</option>
+                                    </select>
+                        </div>
+                    </div>
+
+                    <div class="col-9" style="background-color: aliceblue;">
+                            <table class="table table-borderless" style="width: fit-content;">
+                                    <tbody>
+                                    <ng-template ngFor let-item [ngForOf]="itemList|filter:filterCriterea|filterByCompany:fwCompany" let-i="index">
+
+                                        <tr>
+                                        <ng-template [ngIf]="i%3==0">
+                                                        <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]!=null">
+                                                            <td><app-item-card (click)="toggleDashboard()" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]"></app-item-card></td>
+                                                        </ng-template>
+
+                                                        <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]!=null">
+                                                            <td><app-item-card (click)="toggleDashboard()" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]"></app-item-card></td>
+                                                        </ng-template>
+
+                                                        <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]!=null">
+                                                            <td><app-item-card (click)="toggleDashboard()" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]"></app-item-card></td>
+                                                        </ng-template>
+                                        </ng-template>
+                                        </tr>
+
+                                    </ng-template>
+                                    
+                                    </tbody>
+                            </table>
+                    </div>
+        </div>
+</div>

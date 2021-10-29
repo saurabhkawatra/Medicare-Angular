@@ -1,0 +1,66 @@
+<app-admin-dashboard></app-admin-dashboard>
+
+
+<h1 class="text-secondary" style="margin-left: 20%;font-weight: bold;margin-top: 40px;width: fit-content;box-shadow: 0px 0px 15px 4px lightgreen;padding: 5px;">
+    Item Id - {{uploadItem.itemId}}
+</h1>
+
+<div class="row">
+
+    <div class="col-4 offset-1" style="padding-top: 2%;">
+        <div align="right" class="mb-3">
+            <label for="formFile" style="margin-right: 20%;color:gray;" class="form-label">Upload New Image for the Product (Optional)</label>
+            <input #imgFileInputElement class="form-control" (change)="imageChange($event)" style="width: 80%;margin-left: 10%;" type="file">
+        </div>
+        <div *ngIf="imageFile!=null||imgsrc!=null" align="right" class="mb-3">
+            <label for="formFile" style="margin-right: 60%;color:gray;" class="form-label">Image Preview</label>
+            <img class="form-control" [(src)]="imgsrc" style="width: 80%;margin-left: 10%;" type="file" />
+        </div>
+
+    </div>
+
+    <div class="col-7">
+        <form #addItemForm="ngForm"  ngNativeValidate (ngSubmit)="updateItemClick()" style="padding-bottom: 10px;margin-top: 20px;">
+            <div class="container col-8 offset-1 text-center" style="box-shadow: 0px 0px 10px 2px gray; padding: 20px;background-color: rgb(231, 255, 255);">
+                        
+                        <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                            <mat-label>Item Name</mat-label>
+                            <input name="nameItemName" [(ngModel)]="uploadItem.itemName" required matInput>
+                        </mat-form-field>
+        
+        
+                        <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                        <mat-label>Unit Price</mat-label>
+                        <input name="nameUnitPrice" type="text" [(ngModel)]="uploadItem.unitPrice" required matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                        <mat-label>Quantity</mat-label>
+                        <input name="nameItemQuantity" type="number" [(ngModel)]="uploadItem.itemQuantity" required matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                        <mat-label>Item Company</mat-label>
+                        <input name="nameItemCompany" [(ngModel)]="uploadItem.itemCompany" required matInput>
+                        </mat-form-field>
+        
+        
+                        <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                        <mat-label>Select Item Category</mat-label>
+                        <mat-select name="itemCategoryname" [(ngModel)]="uploadItem.itemCategory" required>
+                                    <mat-option [value]="uploadItem.itemCategory">{{uploadItem.itemCategory}}</mat-option>
+                                <ng-template ngFor let-itemCategory [ngForOf]="itemCategoryList |sort:'itemCategoryName':'asc'">
+                                    <mat-option *ngIf="itemCategory.itemCategoryName!=uploadItem.itemCategory" [value]="itemCategory.itemCategoryName">{{itemCategory.itemCategoryName}}</mat-option>
+                                </ng-template>
+                        </mat-select>
+                        </mat-form-field>
+                        
+                        <br>
+                        <button type="submit" mat-raised-button color="primary">Update Item</button>
+        
+            </div>
+            
+        </form>
+    </div>
+
+</div>

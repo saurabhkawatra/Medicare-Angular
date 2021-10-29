@@ -1,0 +1,86 @@
+
+<div class="container">
+<h3 style="font-weight: lighter;padding-top: 0.5em;"><img src="assets/Basic Images/medicare-logo.png" style="width: 100px;" alt='image not found'>Medicare&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/about" mat-button color="primary">About</a>&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/" mat-button color="primary">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;<a mat-button color="primary">ViewProducts</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a routerLink="/register">Sign Up</a>&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/login">Login</a>&nbsp;&nbsp;</h3>
+</div>
+<hr>
+<br>
+        <table class="table">
+            <tr>
+                <td style="vertical-align: top;">
+                        <div class="container">
+                            <h3 style="font-size: 25px;font-weight: 10px;font-family:Lucida Grande; padding-top: 0.5em;text-align: left;padding-left: 100px;padding-top: 0px;">Categories</h3>
+                            <br>
+                            <div class="col-9 offset-6">
+                                <table class="table table-bordered" style="box-shadow: 0px 0px 10px 1px darkgrey;">
+                                        <tbody>
+                                            <tr><td>Antipyretics</td></tr>
+                                            <tr><td>Analgesics</td></tr>
+                                            <tr><td>Antibiotics</td></tr>
+                                        </tbody>
+                                </table>
+                                <span  style="font-size: 17px;font-weight: 500;font-family: inherit;">And a lot more...</span>
+                            </div>
+                        </div>
+                </td>
+                <td>
+                    <div class="container col-9 offset-2" style="box-shadow: 0px 0px 20px 10px grey;border-radius: 10px;">
+                    <div id="carouselExampleFade" class="carousel carousel-light slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container text-center">
+                                <img src="assets/Basic Images/slide1.jpg" width="1000px" height="300px" alt="...">
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="container text-center">
+                                <img src="assets/Basic Images/slide2.jpg" width="1000px" height="300px" alt="...">
+                            </div>
+                            
+                        </div>
+                        <div class="carousel-item">
+                            <div class="container text-center">
+                                <img src="assets/Basic Images/slide3.jpg" width="1000px" height="300px" alt="...">
+                            </div>
+                        </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <br>
+        <br>
+        <div class="container col-9 offset-3" >
+            <h3 style="font-weight: lighter;">Most Bought Medicines</h3>
+            <hr>
+            <table class="table table-borderless">
+                <tr><td><app-card mycustomurl={{testImageUrlItem1}}></app-card></td><td><app-card mycustomurl="assets/Basic Images/item2.jpg"></app-card></td><td><app-card mycustomurl="assets/Basic Images/item3.jpg"></app-card></td></tr>
+                <tr><td><app-card mycustomurl="assets/Basic Images/item4.jpg"></app-card></td><td><app-card mycustomurl="assets/Basic Images/item5.jpg"></app-card></td><td><app-card mycustomurl="assets/Basic Images/item6.jpg"></app-card></td></tr>
+                <tr><td><app-card mycustomurl="assets/Basic Images/item7.jpg" subtext="Uplizna"></app-card></td><td><app-card mycustomurl="assets/Basic Images/item8.png"></app-card></td><td><app-card mycustomurl="assets/Basic Images/item9.jpg"></app-card></td></tr>
+            </table>
+        </div>
+        <br>
+        <br>

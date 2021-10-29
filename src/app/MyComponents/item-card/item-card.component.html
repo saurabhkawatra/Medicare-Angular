@@ -1,0 +1,71 @@
+<style>
+    .card img{
+    width: 250px;
+    height:200px;
+    margin-bottom:10px;
+    transition: 0.3s ease-in-out;
+}
+.card{
+    padding: 20px;
+    margin: 5px auto;
+    height: 500px;
+    width: 300px;
+}
+.card img:hover{
+    transition: 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+.card h5{
+    height: 30px;
+    text-align: center;
+}
+</style>
+<style>
+.cardlong{
+    padding: 20px;
+    margin: 5px auto;
+    height: 500px;
+    width: 300px;
+    background-color: rgb(220, 247, 220);
+}
+.cardlong img{
+    width: 250px;
+    height:200px;
+    margin-bottom:10px;
+    transition: 0.3s ease-in-out;
+}
+.cardlong img:hover{
+    transition: 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+.cardlong h5{
+    height: 30px;
+    text-align: center;
+}
+</style>
+
+
+        <div [ngClass]="getDuplicateItemQuantityInCart(item.itemId)==0 ?'card':'cardlong'"  style="box-shadow: 0px 0px 10px 3px grey;margin-left: 0.1rem;margin-right: 0.1rem;">
+
+            <img src="{{item.itemImageUrl}}" alt="">
+            <h5>{{item.itemName}}</h5>
+            <hr>
+            <div align="left">
+            <p><strong>Company: </strong>{{item.itemCompany}}</p>
+            <p><strong>Category: </strong>{{item.itemCategory}}</p>
+            <p><strong>Price: </strong>&#8377;<span class="text-success"><b>{{item.unitPrice}}</b></span></p>
+            </div>
+            <div align="left">
+            <button *ngIf="getDuplicateItemQuantityInCart(item.itemId)==0" mat-raised-button color="primary" (click)="addToCart(item)">Add to Cart</button>
+                    <table style="width: fit-content;box-shadow: 0px 0px 10px 2px grey;background-color: white;" class="table table-bordered" *ngIf="getDuplicateItemQuantityInCart(item.itemId)>0">
+                        <tbody>
+                            <tr>
+                                <td><button class="btn" (click)="decreaseItemQuan(item,item.itemId)"><span>&#9664;</span></button></td>
+                                <td style="vertical-align: middle;">{{getDuplicateItemQuantityInCart(item.itemId)}}</td>
+                                <td><button class="btn" (click)="increaseItemQuan(item,item.itemId)"><span>&#9654;</span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+

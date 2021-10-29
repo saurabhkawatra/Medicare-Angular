@@ -1,0 +1,73 @@
+<app-user-dashboard></app-user-dashboard>
+
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-6 offset-3"  style="box-shadow: 0px 0px 10px 5px rgb(199, 199, 199);height: 10rem;background-color: rgb(225, 248, 225);">
+            
+            <div class="row">
+                <div class="col-3">
+                    <img src="assets/Basic Images/success.png" width="100px" align="right" style="margin: 10px;">
+                </div>
+                <div class="col" style="padding: 20px;">
+                    <h1 style="font-size: 35px;font-family: Verdana;color: rgb(71, 83, 78)">Payment Received...</h1>
+                    <h1 style="font-size: 20px;font-family: Verdana;color: rgb(71, 83, 78)">Your order has been placed <br> successfully...</h1>
+                </div>
+            </div>
+            
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<div class="col-8 offset-2">
+
+    <table class="table table-bordered" style="box-shadow: 0px 0px 10px 4px gray;">
+        <thead>
+            <tr>
+                <th colspan="2" style="text-align: center;font-size: 17px;color: rgb(105, 105, 105);">Order Id</th>
+                <td><b>{{latestPurchaseDetails.id}}</b></td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: center;font-size: 17px;color: rgb(105, 105, 105);">Order Date</th>
+                <td><b>{{latestPurchaseDetails.purchaseDate}}</b></td>
+            </tr>
+            <tr>
+                <th>Item Name</th>
+                <th>Item Company</th>
+                <th>Item Category</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Unit Price * Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of latestPurchaseDetails.itemList|distnctParaFilter:'itemId'">
+                <td>{{item.itemName}}</td>
+                <td>{{item.itemCompany}}</td>
+                <td>{{item.itemCategory}}</td>
+                <td>{{getDuplicateItemQuantity(item.itemId)}}</td>
+                <td>&#8377; {{item.unitPrice}}</td>
+                <td>&#8377; {{getDuplicateItemQuantity(item.itemId)*item.unitPrice}}</td>
+            </tr>
+            <tr style="border-top: black dotted 2px;">
+                <th colspan="5" style="text-align: center;font-size: 25px;">Total Amount Paid</th>
+                <td style="font-size: 20px;font-weight: bold;background-color: rgb(211, 207, 207);">&#8377; {{getTotalCost()}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<br>
+<br>
+<div class="offset-8">
+    <a routerLink="/" mat-raised-button color="warn" style="font-size: 25px;height: 50px;padding: 5px;">continue shopping &#9654;</a>
+</div>
+<br>
+<br>
+<br>
+<br>
+

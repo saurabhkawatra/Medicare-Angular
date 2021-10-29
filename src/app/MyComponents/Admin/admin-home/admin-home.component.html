@@ -1,0 +1,163 @@
+<app-admin-dashboard></app-admin-dashboard>
+
+<div class="container col-10 offset-1" style="padding: 40px;">
+
+   <!-- <h6>DOWN ARROW &#8595;</h6>
+   <h6>Black DOWN Pointing triangle &#x25BC;</h6> -->
+
+   <h1 class="text-light text-center" style="font-size: 40px;text-shadow: 0px 0px 10px black;">Admin Home</h1>
+   <br>
+   <br>
+            <div class="container col-9">
+               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                           <h1 class="text-primary" style="margin-top: 20px;">Add New Product</h1>
+                        </mat-expansion-panel-header>
+
+
+                        <form #addItemForm="ngForm"  ngNativeValidate (ngSubmit)="addItemClick()" style="padding-bottom: 10px;margin-top: 20px;">
+                           <div class="container col-8 offset-2 text-center" style="box-shadow: 0px 0px 10px 2px gray; padding: 20px;">
+               
+                                       <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                                             <mat-label>Item Name</mat-label>
+                                             <input name="nameItemName" [(ngModel)]="itemName" required matInput>
+                                       </mat-form-field>
+               
+               
+                                       <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                                          <mat-label>Unit Price</mat-label>
+                                          <input name="nameUnitPrice" type="text" [(ngModel)]="unitPrice" required matInput>
+                                       </mat-form-field>
+               
+                                       <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                                          <mat-label>Quantity</mat-label>
+                                          <input name="nameItemQuantity" type="number" [(ngModel)]="itemQuantity" required matInput>
+                                       </mat-form-field>
+               
+                                       <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                                          <mat-label>Item Company</mat-label>
+                                          <input name="nameItemCompany" [(ngModel)]="itemCompany" required matInput>
+                                       </mat-form-field>
+               
+               
+                                       <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                                          <mat-label>Select Item Category</mat-label>
+                                          <mat-select name="itemCategoryname" [(ngModel)]="itemCategory" required>
+                                                   <mat-option *ngIf="itemCategoryList==''">No Categories Added In Database <span class="text-danger">(Please Add a Category First)</span></mat-option>
+                                                <ng-template ngFor let-itemCategory [ngForOf]="itemCategoryList">
+                                                   <mat-option [value]="itemCategory.itemCategoryName">{{itemCategory.itemCategoryName}}</mat-option>
+                                                </ng-template>
+                                          </mat-select>
+                                       </mat-form-field>
+                                       <div align="left" class="mb-3">
+                                          <label for="formFile" style="margin-left: 10%;color:gray;" class="form-label">Upload Image for the Product (Optional)</label>
+                                          <input #imgFileInputElement class="form-control" (change)="imageChange($event)" style="width: 80%;margin-left: 10%;" type="file">
+                                       </div>
+                                       <div *ngIf="imageFile!=null" align="left" class="mb-3">
+                                          <label for="formFile" style="margin-left: 10%;color:gray;" class="form-label">Image Preview</label>
+                                          <img class="form-control" [(src)]="imgsrc" style="width: 80%;margin-left: 10%;" type="file" />
+                                       </div>
+                                       <br>
+                                       <button type="submit" mat-raised-button color="primary">Add Item</button>
+               
+                           </div>
+                           
+                        </form>
+               </mat-expansion-panel>
+            </div>
+
+            
+            <br>
+            <div style="left:10%;top:30%;" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+               <div class="modal-dialog">
+                       <div class="modal-body" >
+                           <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                       </div>
+               </div>
+           </div>
+            <button hidden #togglebtn type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+               Launch demo modal
+           </button>
+            <div class="container col-9">
+               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                           <h1 class="text-primary" style="margin-top: 20px;">Add New Category</h1>
+                        </mat-expansion-panel-header>
+
+
+                        <form #addCategoryForm="ngForm"  ngNativeValidate (ngSubmit)="addCategoryClick()" style="padding-bottom: 10px;margin-top: 20px;">
+                           <div class="container col-8 offset-2 text-center" style="box-shadow: 0px 0px 10px 2px gray; padding: 20px;">
+               
+                                       <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
+                                             <mat-label>Category Name</mat-label>
+                                             <input name="nameItemName" [(ngModel)]="categoryName" required matInput>
+                                       </mat-form-field>
+                                       <br>
+                                       <button type="submit" mat-raised-button color="primary">Add Category</button>
+                           </div>
+                        </form>
+               </mat-expansion-panel>
+            </div>
+
+
+
+   <!-- <form ngNativeValidate (ngSubmit)="addItemClick()">
+            <div class="container col-8 offset-2 text-center" style="box-shadow: 0px 0px 10px 2px gray; padding: 20px;">
+
+                        <h1 class="text-primary" style="margin-top: 20px;text-align: left;margin-left: 60px;">Add New Product</h1>
+
+
+                        <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
+                              <mat-label>Item Name</mat-label>
+                              <input name="nameItemName" [(ngModel)]="itemName" required matInput>
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
+                           <mat-label>Unit Price</mat-label>
+                           <input name="nameUnitPrice" type="number" [(ngModel)]="unitPrice" required matInput>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
+                           <mat-label>Quantity</mat-label>
+                           <input name="nameItemQuantity" type="number" [(ngModel)]="itemQuantity" required matInput>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
+                           <mat-label>Item Company</mat-label>
+                           <input name="nameItemCompany" [(ngModel)]="itemCompany" required matInput>
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
+                           <mat-label>Select Item Category</mat-label>
+                           <mat-select name="itemCategoryname" [(ngModel)]="itemCategory" required>
+                                    <mat-option *ngIf="itemCategoryList==''">No Categories Added In Database <span class="text-danger">(Please Add a Category First)</span></mat-option>
+                                 <ng-template ngFor let-itemCategory [ngForOf]="itemCategoryList">
+                                    <mat-option [value]="itemCategory.itemCategoryName">{{itemCategory.itemCategoryName}}</mat-option>
+                                 </ng-template>
+                           </mat-select>
+                        </mat-form-field>
+                        <div align="left" class="mb-3">
+                           <label for="formFile" style="margin-left: 10%;color:gray;" class="form-label">Upload Image for the Product (Optional)</label>
+                           <input class="form-control" (change)="imageChange($event)" style="width: 80%;margin-left: 10%;" type="file">
+                        </div>
+                        <div *ngIf="imageFile!=null" align="left" class="mb-3">
+                           <label for="formFile" style="margin-left: 10%;color:gray;" class="form-label">Image Preview</label>
+                           <img class="form-control" [(src)]="imgsrc" style="width: 80%;margin-left: 10%;" type="file" />
+                        </div>
+                        <br>
+                        <button type="submit" mat-raised-button color="primary">Add Item</button>
+
+            </div>
+            
+   </form> -->
+
+
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
