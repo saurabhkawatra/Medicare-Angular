@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class AdminServiceService {
 
-  baseURL:string="http://54.157.10.242:8084"+"/admin";
-  // baseURL:string="http://localhost:8084"+"/admin";
+  // baseURL:string="http://54.157.10.242:8084"+"/admin";
+  baseURL:string="http://localhost:8084"+"/admin";
 
   params:HttpParams;
 

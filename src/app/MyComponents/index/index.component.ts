@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  testImageUrlItem1:String="assets/Basic Images/item1.jpg";
+  testImageUrlItem1:String="https://raw.githubusercontent.com/saurabhkawatra/staticfilesforangular/main/item1.jpg";
 
   constructor() { 
     

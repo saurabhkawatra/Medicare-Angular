@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 style="font-weight: lighter;padding-top: 0.5em;"><a routerLink=""><img src="assets/Basic Images/medicare-logo.png" style="width: 100px;" alt='image not found'></a>Medicare&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/about" mat-button color="primary">About</a>&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/" mat-button color="primary">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;<a *ngIf="user.authority=='ROLE_Admin'" mat-button color="primary" routerLink="/admin/manageProducts">ManageProducts</a>  
+    <h3 style="font-weight: lighter;padding-top: 0.5em;"><a routerLink=""><img src="https://raw.githubusercontent.com/saurabhkawatra/staticfilesforangular/main/medicare-logo.png" style="width: 100px;" alt='image not found'></a>Medicare&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/about" mat-button color="primary">About</a>&nbsp;&nbsp;&nbsp;&nbsp;<a routerLink="/" mat-button color="primary">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;<a *ngIf="user.authority=='ROLE_Admin'" mat-button color="primary" routerLink="/admin/manageProducts">ManageProducts</a>  
     &nbsp;<a routerLink="/user/home" mat-button color="primary">ViewProducts</a>
 
     <ng-template [ngIf]="user.authority=='ROLE_User'">
@@ -12,12 +12,12 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     
-    <a routerLink="/user/checkout" mat-button matBadge="{{user.cart.itemsInCart.length}}" matBadgeColor="warn" color="primary"><img src="assets/Basic Images/cart-icon.png" style="width:40px;height:40px;" ></a>
+    <a routerLink="/user/checkout" mat-button matBadge="{{user.cart.itemsInCart.length}}" matBadgeColor="warn" color="primary"><img src="https://raw.githubusercontent.com/saurabhkawatra/staticfilesforangular/main/cart-icon.png" style="width:40px;height:40px;" ></a>
             <button mat-button [matMenuTriggerFor]="menu" mat-button color="primary">{{user.firstName}} {{user.lastName}}&#x25BC;</button>
                 <mat-menu #menu="matMenu">
                 <!-- <a routerLink="/user/profile" mat-menu-item>Profile &nbsp;&nbsp;&nbsp;<img src="assets/Basic Images/profileicon.png" style="width:20px;height:20px;" ></a> -->
-                <a routerLink="/user/purchaseHistory" mat-menu-item style="height: 50px;line-height: 20px;"><table><tr><td>Purchase <br>History</td><td>&nbsp;&nbsp;&nbsp;<img src="assets/Basic Images/purchase-history-icon.png" style="width:25px;height:25px;" ></td></tr></table></a>
-                <button mat-menu-item (click)="logout()">Logout&nbsp;&nbsp;&nbsp;<img src="assets/Basic Images/logout.png" style="width:20px;height:20px;" ></button>
+                <a routerLink="/user/purchaseHistory" mat-menu-item style="height: 50px;line-height: 20px;"><table><tr><td>Purchase <br>History</td><td>&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/saurabhkawatra/staticfilesforangular/main/purchase-history-icon.png" style="width:25px;height:25px;" ></td></tr></table></a>
+                <button mat-menu-item (click)="logout()">Logout&nbsp;&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/saurabhkawatra/staticfilesforangular/main/logout.png" style="width:20px;height:20px;" ></button>
                 </mat-menu>
 </h3>
 </div>
