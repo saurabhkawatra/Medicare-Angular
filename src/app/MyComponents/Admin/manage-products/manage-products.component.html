@@ -27,7 +27,7 @@
                 </div>
             </div>
     <table class="table table-bordered">
-        <thead style="vertical-align: middle;text-align: center;font-weight: bold;">
+        <thead class="sticky-top bg-light" style="vertical-align: middle;text-align: center;font-weight: bold;">
             <td (click)="sortingClick('itemId')"><span class="btn"><span style="color:black" *ngIf="cfitid=='blue'&&inputSortOrder=='asc'">&#9650;</span><span style="color:black" *ngIf="cfitid=='blue'&&inputSortOrder=='des'">&#x25BC;</span><span [style.color]="cfitid">Id</span><br><span style="font-size: 1.5rem;">&#8593;&#8595;</span></span></td>
             <td></td>
             <td (click)="sortingClick('itemName')"><span class="btn"><span style="color:black" *ngIf="cfitname=='blue'&&inputSortOrder=='asc'">&#9650;</span><span style="color:black" *ngIf="cfitname=='blue'&&inputSortOrder=='des'">&#x25BC;</span><span [style.color]="cfitname">Item Name</span><br><span style="font-size: 1.5rem;">&#8593;&#8595;</span></span></td>

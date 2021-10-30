@@ -28,7 +28,7 @@
                     <th align="right" style="text-align: right;color: black;font-weight: 100;">TOTAL</th>
                 </thead>
                 <tbody style="text-align: center;">
-                    <ng-template ngFor let-item [ngForOf]="filteredItemsIncart" let-i="index">
+                    <ng-template ngFor let-item [ngForOf]="filteredItemsIncart|sort:'itemName':'asc'" let-i="index">
                         <tr  style="vertical-align: middle;">
                             <td align="left">
                                 <table class="table table-borderless" style="text-align: left;">
