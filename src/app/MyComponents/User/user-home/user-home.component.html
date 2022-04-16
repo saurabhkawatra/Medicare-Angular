@@ -9,7 +9,7 @@
                                     <p>*Filter Items based on category*</p>
                                     <select [(ngModel)]="filterCriterea"  style="width:70%;" class="form-select">
                                         <option value="">Category (Default No Filter)</option>
-                                        <option *ngFor="let item of itemList | distinctFilter |sort :'itemCategory':'asc'" [value]="item.itemCategory">{{item.itemCategory}}</option>
+                                        <option *ngFor="let item of itemList| distinctFilter |sort :'itemCategory':'asc'" [value]="item.itemCategory">{{item.itemCategory}}</option>
                                     </select>
                         </div>
                         <hr>
@@ -30,15 +30,15 @@
                                         <tr>
                                         <ng-template [ngIf]="i%3==0">
                                                         <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]!=null">
-                                                            <td><app-item-card (click)="toggleDashboard()" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]"></app-item-card></td>
+                                                            <td><app-item-card (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]"></app-item-card></td>
                                                         </ng-template>
 
                                                         <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]!=null">
-                                                            <td><app-item-card (click)="toggleDashboard()" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]"></app-item-card></td>
+                                                            <td><app-item-card (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]"></app-item-card></td>
                                                         </ng-template>
 
                                                         <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]!=null">
-                                                            <td><app-item-card (click)="toggleDashboard()" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]"></app-item-card></td>
+                                                            <td><app-item-card (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]"></app-item-card></td>
                                                         </ng-template>
                                         </ng-template>
                                         </tr>

@@ -10,6 +10,9 @@ export class UserPurchaseHistoryComponent implements OnInit {
 
   listOfPurchases:any;
   panelOpenState=false;
+  testDate:Date;
+  selectedSortOption;
+  selectedOrder = 'asc';
   
   constructor(private userService:UserServiceService) { }
 

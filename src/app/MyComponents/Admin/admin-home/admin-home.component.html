@@ -1,11 +1,14 @@
 <app-admin-dashboard></app-admin-dashboard>
 
+
 <div class="container col-10 offset-1" style="padding: 40px;">
 
    <!-- <h6>DOWN ARROW &#8595;</h6>
    <h6>Black DOWN Pointing triangle &#x25BC;</h6> -->
-
-   <h1 class="text-light text-center" style="font-size: 40px;text-shadow: 0px 0px 10px black;">Admin Home</h1>
+   <div class="col-4 offset-4" align="center" style="background-color: rgb(108, 216, 216);height: 100px;padding: 30px;">
+      <h1 class="text-light text-center" style="font-size: 40px;text-shadow: 0px 0px 7px gray;">Admin Home</h1>
+   </div>
+   
    <br>
    <br>
             <div class="container col-9">
@@ -42,9 +45,9 @@
                
                                        <mat-form-field appearance="outline" style="width: 84%;font-size: 15px;">
                                           <mat-label>Select Item Category</mat-label>
-                                          <mat-select name="itemCategoryname" [(ngModel)]="itemCategory" required>
+                                          <mat-select (click)="ngOnInit()" name="itemCategoryname" [(ngModel)]="itemCategory" required>
                                                    <mat-option *ngIf="itemCategoryList==''">No Categories Added In Database <span class="text-danger">(Please Add a Category First)</span></mat-option>
-                                                <ng-template ngFor let-itemCategory [ngForOf]="itemCategoryList">
+                                                <ng-template ngFor let-itemCategory [ngForOf]="itemCategoryList|sort:'itemCategoryName':'asc'">
                                                    <mat-option [value]="itemCategory.itemCategoryName">{{itemCategory.itemCategoryName}}</mat-option>
                                                 </ng-template>
                                           </mat-select>

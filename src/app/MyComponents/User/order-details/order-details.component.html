@@ -1,12 +1,19 @@
 <app-user-dashboard></app-user-dashboard>
+<app-loader [isVisible]="showLoader"></app-loader>
 
 <br>
 <br>
 <br>
 <div class="container">
-    <div class="col-6 offset-3"  style="box-shadow: 0px 0px 10px 5px rgb(199, 199, 199);height: 10rem;background-color: rgb(225, 248, 225);">
+    <div class="col-6 offset-3"  style="box-shadow: 0px 0px 10px 5px rgb(199, 199, 199);height: 15%;background-color: rgb(225, 248, 225);">
             
-            <div class="row">
+        
+            <div align="center" [hidden]="paymentReceived">
+                <div class="spinner-border text-primary" style="height: 6rem;width: 6rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="row" [hidden]="!paymentReceived">
                 <div class="col-3">
                     <img src="https://raw.githubusercontent.com/saurabhkawatra/staticfilesforangular/main/success.png" width="100px" align="right" style="margin: 10px;">
                 </div>

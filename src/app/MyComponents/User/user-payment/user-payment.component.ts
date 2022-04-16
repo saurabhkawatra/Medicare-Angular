@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/Services/UserService/user-service.service';
+import { LoaderComponent } from '../loader/loader.component';
+import { UserDashboardComponent } from '../user-dashboard/user-dashboard.component';
 
 @Component({
   selector: 'app-user-payment',
@@ -13,7 +15,12 @@ export class UserPaymentComponent implements OnInit {
   cvv;
   cardExpireDate:Date;
   cardHolderName;
-@ViewChild('togglebtn') togglebtn:ElementRef;
+  @ViewChild('dashboard') dashboard:UserDashboardComponent;
+  @ViewChild('togglebtn') togglebtn:ElementRef;
+  @ViewChild('loader') loader:LoaderComponent;
+  showSpinner:boolean = false;
+
+
 
   constructor(private router:Router,private userService:UserServiceService) { }
 
@@ -28,13 +35,14 @@ export class UserPaymentComponent implements OnInit {
         let obj={'cardNo':this.cardNo,'cvv':this.cvv,'cardExpireDate':this.cardExpireDate,'cardHolderName':this.cardHolderName};
         console.log('if block');
         console.log(obj);
-        this.userService.paymentmade(obj).subscribe(data=>{this.togglebtn.nativeElement.click();console.log('received response -',data['message']); setTimeout(() => {this.togglebtn.nativeElement.click();this.router.navigateByUrl('/user/orderDetails');}, 2000);},error=>{console.log('error from user payment comp onPayClick()',error);});
+        this.userService.paymentmade(obj).subscribe(data=>{/* this.togglebtn.nativeElement.click(); */this.showSpinner=true; console.log('received response -',data['message']); setTimeout(() => {/* this.togglebtn.nativeElement.click(); */this.router.navigateByUrl('/user/orderDetails');}, 2000);},error=>{console.log('error from user payment comp onPayClick()',error);});
     } else {
-        console.log('Incomplete Details')
+        console.log('Incomplete Details');
     }
   }
 
   ngOnInit(): void {
+    scrollTo(0,0);
   }
 
 }

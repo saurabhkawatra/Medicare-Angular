@@ -19,7 +19,9 @@ export class EditItemComponent implements OnInit {
   imgsrc;
   categoryName;
 
-  constructor(private activatedRoute:ActivatedRoute,private adminService:AdminServiceService,private router:Router) { }
+  constructor(private activatedRoute:ActivatedRoute,private adminService:AdminServiceService,private router:Router) { 
+    
+  }
 
   updateItemClick() {
     console.log('Update Item click');

@@ -1,5 +1,6 @@
-import { Component, ComponentRef, OnInit } from '@angular/core';
+import { Component, ComponentRef, OnInit, ViewChild } from '@angular/core';
 import { UserServiceService } from 'src/app/Services/UserService/user-service.service';
+import { LoaderComponent } from '../loader/loader.component';
 import { UserDashboardComponent } from '../user-dashboard/user-dashboard.component';
 
 @Component({
@@ -19,7 +20,7 @@ export class UserHomeComponent implements OnInit {
   constructor(private userService:UserServiceService) { }
 
   //toggleDashboard() {this.dashboardToggle=false; setTimeout(()=>{this.dashboardToggle=true;},250);}
-  toggleDashboard() {this.count++; setTimeout(()=>{this.giveSomeInput="sakjldskd"+this.count;},100);}
+  toggleDashboard(itemInThisEvent) {console.log('toggledashboard() method TRIGERRED, event = ',itemInThisEvent);this.count++; setTimeout(()=>{this.giveSomeInput="sakjldskd"+this.count;},100);}
 
   ngOnInit(): void {
     this.userService.getAllItems().subscribe(data=>{this.itemList=data;},error=>{console.log('error from user home component',error);});

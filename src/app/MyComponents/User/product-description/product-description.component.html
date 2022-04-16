@@ -1,0 +1,42 @@
+<app-user-dashboard [someInput]="givesomestringinputtorefreshdashboard"></app-user-dashboard>
+
+
+<h1 class="text-secondary" style="margin-left: 20%;font-weight: bold;margin-top: 40px;width: fit-content;box-shadow: 0px 0px 15px 4px lightgreen;padding: 5px;">
+    Item Id - {{receivedItem.itemId}}
+</h1>
+
+<div class="row">
+
+    <div class="col-4 offset-1" style="padding-top: 2%;">
+        <div align="right" class="mb-3">
+            <label for="formFile" style="margin-right: 60%;color:gray;" class="form-label">Product Preview</label>
+            <img class="form-control" [src]="receivedItem.itemImageUrl" style="width: 80%;margin-left: 10%;" type="file" />
+        </div>
+
+    </div>
+
+    <div class="col-7" style="margin-top: 60px;">
+        <div class="container col-8 offset-1 text-center" style="box-shadow: 0px 0px 10px 2px gray; padding: 80px;background-color: rgb(231, 255, 255);">
+            <table class="table">
+                <tbody style="text-align: left;">
+                    <tr><th>Item Id -</th><td style="font-size: large;color: rgb(155, 127, 123);">{{receivedItem.itemId}}</td></tr>
+                    <tr><th>Item Name -</th><td style="font-size: large;color: rgb(155, 127, 123);">{{receivedItem.itemName}}</td></tr>
+                    <tr><th>Item Company -</th><td style="font-size: large;color: rgb(155, 127, 123);">{{receivedItem.itemCompany}}</td></tr>
+                    <tr><th>Item Unit Price -</th><td style="font-size: large;color: rgb(155, 127, 123);"><b>&#8377;</b> {{receivedItem.unitPrice}}</td></tr>
+                    <tr><th>Item Category -</th><td style="font-size: large;color: rgb(155, 127, 123);">{{receivedItem.itemCategory}}</td></tr>
+                </tbody>
+            </table>
+            <br>
+            <button (click)="increaseQuantityOfThisItem()" *ngIf="numOfThisItemInCart()==0" class="btn btn-primary">Add To Cart</button>
+            
+            <table *ngIf="numOfThisItemInCart()!=0" align="center" width="100px" height="60px" style="background-color: white;box-shadow: 0px 0px 8px 1px gray;">
+                <tr>
+                    <td><a (click)="decreaseQuantityOfThisItem()" class="btn">&#9664;</a></td>
+                    <td style="font-size: 20px;border-left: solid 0.1px rgb(202, 202, 202);border-right: solid 0.1px rgb(202, 202, 202);">{{numOfThisItemInCart()}}</td>
+                    <td><a (click)="increaseQuantityOfThisItem()" class="btn">&#9654;</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

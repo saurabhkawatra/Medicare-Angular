@@ -47,8 +47,8 @@
 
         <div [ngClass]="getDuplicateItemQuantityInCart(item.itemId)==0 ?'card':'cardlong'"  style="box-shadow: 0px 0px 10px 3px grey;margin-left: 0.1rem;margin-right: 0.1rem;">
 
-            <img src="{{item.itemImageUrl}}" alt="">
-            <h5>{{item.itemName}}</h5>
+            <a [routerLink]="['/user/product/',item.itemId]"><img src="{{item.itemImageUrl}}" alt=""></a>
+            <h5><a [routerLink]="['/user/product/',item.itemId]">{{item.itemName}}</a></h5>
             <hr>
             <div align="left">
             <p><strong>Company: </strong>{{item.itemCompany}}</p>

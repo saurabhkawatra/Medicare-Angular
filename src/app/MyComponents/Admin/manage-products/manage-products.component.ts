@@ -73,6 +73,7 @@ export class ManageProductsComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    window.scrollTo(0,0);
     this.adminService.getAllItems().subscribe(data=>{this.itemList=data;console.log(data);},error=>{console.log('error in AdminHomeComponent service call',error)});
   }
 

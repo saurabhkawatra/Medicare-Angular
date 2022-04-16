@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +75,13 @@ export class AdminServiceService {
 
         return this.http.post(this.baseURL+'/updateItem',formData);
 
+  }
+
+  getallusers(){
+    return this.http.post<any[]>(this.baseURL+'/getallusers',null);
+  }
+
+  getPurchaseHistoryListForUser(userId) {
+    return this.http.post<any[]>(this.baseURL+'/getPurchaseHistoryListForUser/'+userId,null);
   }
 }

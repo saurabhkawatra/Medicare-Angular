@@ -17,8 +17,11 @@ export class UserDashboardComponent implements OnInit {
   user:any;
   hzp:MatSnackBarHorizontalPosition;
   vtclp:MatSnackBarVerticalPosition;
+  cartHoverBox:Boolean=false;
+  itemsInCart:any[];
+  totalCost;
 
-  constructor(private userService:UserServiceService, private service:BasicServicesService,private snkbar:MatSnackBar,private router:Router) { }
+  constructor(private userService:UserServiceService, private service:BasicServicesService,private snkbar:MatSnackBar,private router:Router) { this.user={authority:'',cart:{itemsInCart:{length:''}},firstName:'',lastName:''};}
 
   logout() {
     this.service.logout().subscribe(data =>{
@@ -29,8 +32,21 @@ export class UserDashboardComponent implements OnInit {
               },error=>{console.log(error)});
   }
 
+  cartMouseEnter() {
+    console.log('Cart Mouse Enter...');
+    this.cartHoverBox=true;
+  }
+  cartMouseLeave() {
+    console.log('Cart Mouse Leave...');
+    this.cartHoverBox=false;
+  }
+  getTotalCost(){let sum=0; for(let item of this.itemsInCart) {sum = sum + parseFloat(item.unitPrice);} sum=Math.ceil(sum*100)/100; return sum;}
+  getItemQuantity(itemId) {let q=0;for(let item of this.itemsInCart){if(item.itemId==itemId)q++;}return q;}
+
   ngOnInit(): void {
-    this.userService.getUserDetails().subscribe(data=>{this.user=data;console.clear();},error=>{console.log('error from user dashboard',error)});
+    this.userService.getUserDetails().subscribe(data=>{this.user=data;},error=>{console.log('error from user dashboard',error);});
+    this.userService.getItemsInCart().subscribe(data=>{this.itemsInCart=data;this.totalCost=this.getTotalCost();},error=>{console.log('error from User dashboard getitemsinCart',error);});
+    
   }
 
   ngOnChanges() {

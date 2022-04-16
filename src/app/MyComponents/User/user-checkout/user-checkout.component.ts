@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserServiceService } from 'src/app/Services/UserService/user-service.service';
+import { UserDashboardComponent } from '../user-dashboard/user-dashboard.component';
 
 @Component({
   selector: 'app-user-checkout',
@@ -12,14 +13,17 @@ export class UserCheckoutComponent implements OnInit {
   filteredItemsIncart:any[];
   toggleDash=true;
   randomInputCount=0;
+  @ViewChild('dashboard') dashboard:UserDashboardComponent;
+  math=Math;
 
-  constructor(private userService:UserServiceService) { }
+  constructor(private userService:UserServiceService) {this.itemsInCart=[{}]; }
 
   getOrderTotal(){
     let orderTotal=0;
     for(let item of this.itemsInCart) {
       orderTotal=orderTotal+item.unitPrice;
     }
+    orderTotal=Math.ceil(orderTotal*100)/100;
     return orderTotal;
   }
 

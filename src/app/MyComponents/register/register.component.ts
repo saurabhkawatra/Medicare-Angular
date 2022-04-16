@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { disableDebugTools } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { BasicServicesService } from 'src/app/Services/basic-services.service';
 import { User } from '../MODELS/user';
 
@@ -38,7 +39,7 @@ export class RegisterComponent implements OnInit {
     this.service.doRegistration(this.user).subscribe((response)=>{this.message=response;if(response=="Registration Success"){this.isRegistrationSuccess=true;console.log(this.message);this.snkbar.open(this.message,"OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom',duration:4000})}});
     else {
       this.incorrectvaluescheck();
-      this.snkbar.open("Invalid Form Details!","OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom',duration:4000});
+      this.snkbar.open("Invalid Form Details!","OK",{horizontalPosition:'center',verticalPosition:'top',duration:4000});
     }
     
   }
@@ -64,7 +65,11 @@ export class RegisterComponent implements OnInit {
     else {this.user.primaryPhoneNo="";this.phonenocheck="";}
   }
 
-  constructor(private service: BasicServicesService,private snkbar:MatSnackBar) {}
+  signUpClick() {
+    window.location.reload();
+  }
+
+  constructor(private service: BasicServicesService,private snkbar:MatSnackBar,private router:Router) {}
 
   ngOnInit(): void {
   }

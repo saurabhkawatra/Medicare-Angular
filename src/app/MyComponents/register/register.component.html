@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (signUpClick)="signUpClick()"></app-header>
 <div align="center">
     <div style="margin-top: 60px;border: solid 1px darkgrey;border-radius: 10px; padding:50px;padding-bottom: 20px; width:800px;background-color: ghostwhite;box-shadow: 0px 0px 20px 20px darkgrey;">
         <h1 class="text-primary" style="font-size: 50px; margin-bottom: 30px;">Register</h1>
@@ -11,7 +11,7 @@
                         <mat-label>First Name</mat-label>
                         <input name="namefname" required matInput [(ngModel)]="user.firstName">
                     </mat-form-field> 
-                    <span style="font-size: 20px;" *ngIf="user.firstName==''">&#10060;</span>
+                    <span style="font-size: 20px;" *ngIf="user.firstName==''">&nbsp;&#10071;</span>
                     <span style="font-size: 20px;" *ngIf="user.firstName!=''&&user.firstName!=null">&#10004;&#65039;</span>
                     <p *ngIf="user.firstName==''" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p><br>
 
@@ -19,7 +19,7 @@
                     <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
                         <mat-label>Last Name</mat-label>
                         <input name="namelastname" required matInput [(ngModel)]="user.lastName">
-                    </mat-form-field> <span style="font-size: 20px;" *ngIf="user.lastName==''">&#10060;</span><span style="font-size: 20px;" *ngIf="user.lastName!=''&&user.lastName!=null">&#10004;&#65039;</span>
+                    </mat-form-field> <span style="font-size: 20px;" *ngIf="user.lastName==''">&nbsp;&#10071;</span><span style="font-size: 20px;" *ngIf="user.lastName!=''&&user.lastName!=null">&#10004;&#65039;</span>
                     <p *ngIf="user.lastName==''" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p><br>
 
 
@@ -27,7 +27,7 @@
                         <mat-label>Date Of Birth</mat-label>
                         <input name="namedate" required type="date" [(ngModel)]="user.dateOfBirth" matInput>
                     </mat-form-field>
-                    <span style="font-size: 20px;" *ngIf="!user.dateOfBirth instanceof Date">&#10060;</span>
+                    <span style="font-size: 20px;" *ngIf="!user.dateOfBirth instanceof Date">&nbsp;&#10071;</span>
                     <p *ngIf="!user.dateOfBirth instanceof Date" class="text-danger" style="text-align: left;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p>
                     <span style="font-size: 20px;" *ngIf="user.dateOfBirth instanceof Date">&#10004;&#65039;</span>
                 </div><br>
@@ -37,8 +37,8 @@
                         <mat-label>Primary Contact Number</mat-label>
                         <input required name="namephoneno" (keyup)="keyupphoneno()" matInput type="number" [(ngModel)]="user.primaryPhoneNo">
                     </mat-form-field> 
-                    <span style="font-size: 20px;" *ngIf="phonenocheck=='PhonenoDuplicate'">&#10060;</span>
-                    <span style="font-size: 20px;" *ngIf="user.primaryPhoneNo==''">&#10060;</span>
+                    <span style="font-size: 20px;" *ngIf="phonenocheck=='PhonenoDuplicate'">&nbsp;&#10071;</span>
+                    <span style="font-size: 20px;" *ngIf="user.primaryPhoneNo==''">&nbsp;&#10071;</span>
                     <span style="font-size: 20px;" *ngIf="phonenocheck=='PhonenoAvailable' && user.primaryPhoneNo!='' && user.primaryPhoneNo!=null">&#10004;&#65039;</span>
                     <p *ngIf="phonenocheck=='PhonenoDuplicate'" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Phone Number Already Registered</p>
                     <p *ngIf="user.primaryPhoneNo==''" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p><br>
@@ -48,8 +48,8 @@
                         <mat-label>Primary Email Address</mat-label>
                         <input required name="nameemail" (keyup)="keyupemail()" matInput [(ngModel)]="user.primaryEmail">
                     </mat-form-field> 
-                    <span style="font-size: 20px;" *ngIf="emailcheck=='EmailDuplicate'">&#10060;</span> 
-                    <span style="font-size: 20px;" *ngIf="user.primaryEmail==''">&#10060;</span>
+                    <span style="font-size: 20px;" *ngIf="emailcheck=='EmailDuplicate'">&nbsp;&#10071;</span> 
+                    <span style="font-size: 20px;" *ngIf="user.primaryEmail==''">&nbsp;&#10071;</span>
                     <span style="font-size: 20px;" *ngIf="emailcheck=='EmailAvailable' &&user.primaryEmail!='' && user.primaryEmail!=null">&#10004;&#65039;</span>
                     <p *ngIf="emailcheck=='EmailDuplicate'" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Email Already Registered</p>
                     <p *ngIf="user.primaryEmail==''" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p><br>
@@ -59,8 +59,8 @@
                         <mat-label>Preferred Username</mat-label>
                         <input required name="nameusername" (keyup)="keyupusername()" matInput [(ngModel)]="user.username">
                     </mat-form-field> 
-                    <span style="font-size: 20px;" *ngIf="usernamecheck=='UsernameNotAvailable'">&#10060;</span>
-                    <span style="font-size: 20px;" *ngIf="user.username==''">&#10060;</span> 
+                    <span style="font-size: 20px;" *ngIf="usernamecheck=='UsernameNotAvailable'">&nbsp;&#10071;</span>
+                    <span style="font-size: 20px;" *ngIf="user.username==''">&nbsp;&#10071;</span> 
                     <span style="font-size: 20px;" *ngIf="usernamecheck=='UsernameAvailable' &&user.username!='' && user.username!=null">&#10004;&#65039;</span>
                     <p *ngIf="usernamecheck=='UsernameNotAvailable'" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Username Already Taken</p>
                     <p *ngIf="user.username==''" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p><br>
@@ -70,7 +70,7 @@
                         <mat-label>Set Password</mat-label>
                         <input required name="namepass" type="password" [(ngModel)]="user.password" matInput>
                     </mat-form-field>
-                    <span style="font-size: 20px;" *ngIf="user.password==''">&#10060;</span>
+                    <span style="font-size: 20px;" *ngIf="user.password==''">&nbsp;&#10071;</span>
                     <span style="font-size: 20px;" *ngIf="user.password!=''&&user.password!=null">&#10004;&#65039;</span>
                     <p *ngIf="user.password==''" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p><br>
                     

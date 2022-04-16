@@ -44,6 +44,9 @@ import { FilterByCompanyPipe } from './Pipes/filter-by-company.pipe';
 import { OrderDetailsComponent } from './MyComponents/User/order-details/order-details.component';
 import { EditItemComponent } from './MyComponents/Admin/edit-item/edit-item.component';
 import { AboutComponent } from './MyComponents/about/about.component';
+import { ProductDescriptionComponent } from './MyComponents/User/product-description/product-description.component';
+import { ManageUsersComponent } from './MyComponents/Admin/manage-users/manage-users.component';
+import { LoaderComponent } from './MyComponents/User/loader/loader.component';
 
 
 @NgModule({
@@ -72,7 +75,10 @@ import { AboutComponent } from './MyComponents/about/about.component';
     FilterByCompanyPipe,
     OrderDetailsComponent,
     EditItemComponent,
-    AboutComponent
+    AboutComponent,
+    ProductDescriptionComponent,
+    ManageUsersComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,10 @@
 <app-admin-dashboard></app-admin-dashboard>
 
+
+
 <div class="container">
 
-    <h1 style="font-size: 50px;margin-top: 1.5em;margin-bottom: 1.5em;">Available Products</h1>
+    <h1 style="font-size: 50px;margin-top: 1.5em;margin-bottom: 1.5em;">Manage Products</h1>
         <div style="left:10%;top:30%;" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                     <div class="modal-body" >
@@ -41,9 +43,9 @@
 
         <tbody style="vertical-align: middle;text-align: center;">
             <tr *ngFor="let i of itemList|filter :filterCriterea|sort : inputSortCriterea : inputSortOrder;let x=index;">
-                <td>{{i.itemId}}</td>
-                <td><img src="{{i.itemImageUrl}}" style="width:200px;height: 100px;"></td>
-                <td>{{i.itemName}}</td>
+                <td><a style="text-decoration: none;" [routerLink]="'/user/product/'+i.itemId">{{i.itemId}}</a></td>
+                <td><a [routerLink]="'/user/product/'+i.itemId"><img src="{{i.itemImageUrl}}" style="width:200px;height: 100px;"></a></td>
+                <td><a [routerLink]="'/user/product/'+i.itemId">{{i.itemName}}</a></td>
                 <td>{{i.itemCompany}}</td>
                 <td>{{i.itemCategory}}</td>
                 <td>{{i.itemQuantity}}</td>

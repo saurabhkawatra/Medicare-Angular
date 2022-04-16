@@ -1,0 +1,100 @@
+<app-admin-dashboard></app-admin-dashboard>
+
+<div class="col-9">
+    <div class="row">
+        <div class="col-3">
+            <mat-form-field class="container-fluid" appearance="outline">
+                <mat-label>Showing Results</mat-label>
+                <mat-select [(value)]="noOfResults">
+                    <mat-option *ngFor="let size of noOfResultsSizeOptions" [value]="size">{{ size }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-7">
+            <mat-form-field class="container-fluid" appearance="outline">
+                <mat-label>Search</mat-label>
+                <input (keyup)="searchUser(searchValueBound,$event)" [(ngModel)]="searchValueBound" matInput placeholder="Search Keyword eg- username, firstname, lastname, phone no..." >
+            </mat-form-field>
+        </div>
+        <div class="col-2" style="padding-top: 1%;">
+            <button mat-raised-button color="primary" style="font-size: 25px;" (click)="searchUser(searchValueBound,null)" >Search User</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="border: 3px solid;border-color: gray;">
+    <!-- <ng-template ngFor let-user [ngForOf]="UserList" let-i="index">
+        <h6>{{user|json}}</h6>
+    </ng-template> -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>User Id</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Primary Email</th>
+                <th>Primary Contact Number</th>
+                <th>Date Of Birth</th>
+                <th>Contacts</th>
+                <th>Items in Cart</th>
+                <th>Purchases Made</th>
+                <th>Total Purchase Amount</th>
+            </tr>
+        </thead>
+        <tbody #tableBody>
+            <tr *ngIf="displayList?.length == 0" class="text-danger text-center">
+                <th colspan="12" style="font-weight:normal;">No Users Found !!!</th>
+            </tr>
+            <ng-template ngFor let-user [ngForOf]="displayList" let-i="index">
+                <ng-template [ngIf]="noOfResults*(pageNo-1) <= i && i < noOfResults*pageNo">
+                    <tr>
+                        <td [innerHTML]="i+1"></td>
+                        <td [innerHTML]="user.userId"></td>
+                        <td><div [innerHTML]="user.username"></div></td>
+                        <td [innerHTML]="user.firstName"></td>
+                        <td [innerHTML]="user.lastName"></td>
+                        <td [innerHTML]="user.primaryEmail"></td>
+                        <td [innerHTML]="user.primaryPhoneNo"></td>
+                        <td [innerHTML]="user.dateOfBirth|date"></td>
+                        <td [innerHTML]="user.contacts.length"></td>
+                        <td [innerHTML]="user.cart.itemsInCart.length"></td>
+                        <td [innerHTML]="'<b>' + getNoOfPurchasesMade(user.userId) +'</b>'"></td>
+                        <td><b [innerHTML]="getTotalAmountOfPurchasesMadeForUser(user.userId)"></b></td>
+                        <!-- <td>{{i+1}}</td>
+                        <td>{{user.userId}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.primaryEmail}}</td>
+                        <td>{{user.primaryPhoneNo}}</td>
+                        <td>{{user.dateOfBirth|date}}</td>
+                        <td>{{user.contacts.length}}</td>
+                        <td>{{user.cart.itemsInCart.length}}</td>
+                        <td><b>{{ getNoOfPurchasesMade(user.userId) }}</b></td>
+                        <td><b>{{ getTotalAmountOfPurchasesMadeForUser(user.userId) }}</b></td> -->
+                    </tr>
+                </ng-template>
+                    
+            </ng-template>
+            <tr>
+                <td colspan="12" style="text-align: center;">
+                    Showing <b>{{ pageNo*noOfResults - noOfResults + 1 }} - {{ pageNo*noOfResults < displayList.length ? pageNo*noOfResults : displayList.length }}</b> Results out of <b>{{ displayList.length }}</b>
+                    <span *ngIf="searchValue != null && searchValue != ''"><br>Search Key : <b>{{ searchValue }}</b></span>
+                    <br><br>
+                    <ng-template ngFor let-x [ngForOf]="displayList" let-i="index">
+                        <ng-template [ngIf]="i%noOfResults == 0">
+                            <span [style]="getNavButtonStyle((i/noOfResults) + 1)" (click)="pageNoClick((i/noOfResults)+1)">{{ (i/noOfResults) + 1 }}</span>
+                            &nbsp;
+                        </ng-template>
+                    </ng-template>
+                    <!-- <span style="border: 2px solid indigo;padding: 4px;background-color: indigo;color: white;">1</span> -->
+                    <!-- <span style="border: 2px solid indigo;padding: 4px;cursor: pointer;">2</span> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+

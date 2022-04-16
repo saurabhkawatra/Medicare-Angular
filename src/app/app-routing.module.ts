@@ -7,10 +7,12 @@ import { AboutComponent } from './MyComponents/about/about.component';
 import { AdminHomeComponent } from './MyComponents/Admin/admin-home/admin-home.component';
 import { EditItemComponent } from './MyComponents/Admin/edit-item/edit-item.component';
 import { ManageProductsComponent } from './MyComponents/Admin/manage-products/manage-products.component';
+import { ManageUsersComponent } from './MyComponents/Admin/manage-users/manage-users.component';
 import { IndexComponent } from './MyComponents/index/index.component';
 import { LoginComponent } from './MyComponents/login/login.component';
 import { RegisterComponent } from './MyComponents/register/register.component';
 import { OrderDetailsComponent } from './MyComponents/User/order-details/order-details.component';
+import { ProductDescriptionComponent } from './MyComponents/User/product-description/product-description.component';
 import { UserCheckoutComponent } from './MyComponents/User/user-checkout/user-checkout.component';
 import { UserHomeComponent } from './MyComponents/User/user-home/user-home.component';
 import { UserPaymentComponent } from './MyComponents/User/user-payment/user-payment.component';
@@ -50,7 +52,8 @@ const routes: Routes = [
     {path:"",redirectTo:"/admin/home",pathMatch:"full"},
     {path:"home",component:AdminHomeComponent,canActivate:[AdminGuardGuard]},
     {path:"manageProducts",component:ManageProductsComponent,canActivate:[AdminGuardGuard]},
-    {path:"edit/:itemId",component:EditItemComponent,canActivate:[AdminGuardGuard]}
+    {path:"edit/:itemId",component:EditItemComponent,canActivate:[AdminGuardGuard]},
+    {path:"manageUsers",component:ManageUsersComponent,canActivate:[AdminGuardGuard]}
   ]
 },
 {
@@ -63,7 +66,8 @@ const routes: Routes = [
     {path:"purchaseHistory",component:UserPurchaseHistoryComponent,canActivate:[UserGuardGuard]},
     {path:"checkout",component:UserCheckoutComponent,canActivate:[UserGuardGuard]},
     {path:"payment",component:UserPaymentComponent,canActivate:[UserGuardGuard]},
-    {path:"orderDetails",component:OrderDetailsComponent,canActivate:[UserGuardGuard]}
+    {path:"orderDetails",component:OrderDetailsComponent,canActivate:[UserGuardGuard]},
+    {path:"product/:itemId",component:ProductDescriptionComponent,canActivate:[UserGuardGuard]}
   ]
 }
 ];

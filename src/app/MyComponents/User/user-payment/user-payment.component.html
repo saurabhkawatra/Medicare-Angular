@@ -1,4 +1,4 @@
-<app-user-dashboard></app-user-dashboard>
+<app-user-dashboard #dashboard></app-user-dashboard>
 
 <style>
   .padding {
@@ -13,7 +13,7 @@
 </style>
                         
 
-                        <div style="left:10%;top:30%;" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <!-- <div style="left:10%;top:30%;" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                     <div class="modal-body" >
                                         <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
@@ -22,39 +22,52 @@
                         </div>
                         <button hidden #togglebtn type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Launch demo modal
-                        </button>
+                        </button> -->
+        <!-- <app-loader #loader></app-loader>
+        <button (click)="testFun()">TEST</button> -->
 
+<!-- <div *ngIf="showSpinner" style="z-index: 300;background-color: rgb(0, 0, 0, 0.3);position: fixed;width: 100vw;height: 100%;top: 0;">
+    <div style="margin-left: 45vw;margin-top: 45vh;">
+        <mat-spinner></mat-spinner>
+    </div>
+</div> -->
+<app-loader [isVisible]="showSpinner"></app-loader>
                         
 <div class="padding">
-  <div class="row">
-      <div class="container-fluid d-flex justify-content-center">
-          <div class="col-sm-8 col-md-6" style="box-shadow: 0px 0px 15px 5px gray;border-radius: 30px;">
-              <div class="card" style="border-radius: 30px;">
-                  <div class="card-header">
-                      <div class="row">
-                          <div class="col-md-6"> <span>CREDIT/DEBIT CARD PAYMENT</span> </div>
-                          <div class="col-md-6 text-right" style="margin-top: -5px;"> <img src="https://img.icons8.com/color/36/000000/visa.png"> <img src="https://img.icons8.com/color/36/000000/mastercard.png"> <img src="https://img.icons8.com/color/36/000000/amex.png"> </div>
-                      </div>
-                  </div>
-                  <form (ngSubmit)="onPayClick()" ngNativeValidate>
-                    <div class="card-body" style="height: 400px;background-color: #eceeee;border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;">
-                        <div class="form-group"> <label for="cc-number" class="control-label"><b>CARD NUMBER</b></label> <input name="namecardNo" [(ngModel)]="cardNo" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required> </div><br><br>
+    <div class="col-sm-8 col-md-6 offset-sm-2 offset-md-3">
+        <div class="text-center">
+            <h2>Payment Request For <b>₹ {{dashboard.getTotalCost()}}</b></h2>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="container-fluid d-flex justify-content-center">
+            <div class="col-sm-8 col-md-6" style="box-shadow: 0px 0px 15px 5px gray;border-radius: 30px;">
+                <div class="card" style="border-radius: 30px;">
+                    <div class="card-header">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group"> <label for="cc-exp" class="control-label"><b>CARD EXPIRY</b></label> <input name="namecardExpireDate" [(ngModel)]="cardExpireDate" type="date" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="•• / ••" required> </div><br><br>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group"> <label for="cc-cvc" class="control-label"><b>CARD CVV</b></label> <input name="namecvv" [(ngModel)]="cvv" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="••••" required> </div><br><br>
-                            </div>
+                            <div class="col-md-6"> <span>CREDIT/DEBIT CARD PAYMENT</span> </div>
+                            <div class="col-md-6 text-right" style="margin-top: -5px;"> <img src="https://img.icons8.com/color/36/000000/visa.png"> <img src="https://img.icons8.com/color/36/000000/mastercard.png"> <img src="https://img.icons8.com/color/36/000000/amex.png"> </div>
                         </div>
-                        <div class="form-group"> <label for="numeric" class="control-label"><b>CARD HOLDER NAME</b></label> <input name="namecardHolderName" [(ngModel)]="cardHolderName" type="text" class="input-lg form-control" required> </div><br><br>
-                        <div class="form-group"> <button type="submit" class="btn btn-success btn-lg form-control" style="font-size: .8rem;">MAKE PAYMENT</button> </div>
                     </div>
-                  </form>
-              </div>
-          </div>
-      </div>
-  </div>
+                    <form (ngSubmit)="onPayClick()" ngNativeValidate>
+                        <div class="card-body" style="height: 400px;background-color: #eceeee;border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;">
+                            <div class="form-group"> <label for="cc-number" class="control-label"><b>CARD NUMBER</b></label> <input name="namecardNo" [(ngModel)]="cardNo" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required> </div><br><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"> <label for="cc-exp" class="control-label"><b>CARD EXPIRY</b></label> <input name="namecardExpireDate" [(ngModel)]="cardExpireDate" type="date" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="•• / ••" required> </div><br><br>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> <label for="cc-cvc" class="control-label"><b>CARD CVV</b></label> <input name="namecvv" [(ngModel)]="cvv" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="••••" required> </div><br><br>
+                                </div>
+                            </div>
+                            <div class="form-group"> <label for="numeric" class="control-label"><b>CARD HOLDER NAME</b></label> <input name="namecardHolderName" [(ngModel)]="cardHolderName" type="text" class="input-lg form-control" required> </div><br><br>
+                            <div class="form-group"> <button type="submit" class="btn btn-success btn-lg form-control" style="font-size: .8rem;">MAKE PAYMENT</button> </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

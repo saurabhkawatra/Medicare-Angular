@@ -42,4 +42,7 @@ export class UserServiceService {
   getListOfPurchases() {
     return this.http.post(this.baseURL+'/getListOfPurchases',null);
   }
+  getItemByitemId(itemId) {
+    return this.http.post(this.baseURL+'/getitembyId/'+itemId,null);
+  }
 }

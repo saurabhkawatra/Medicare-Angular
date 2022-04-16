@@ -1,16 +1,16 @@
 <!-- <app-user-dashboard *ngIf="toggleDash"></app-user-dashboard> -->
-<app-user-dashboard [someInput]="randomInputCount"></app-user-dashboard>
+<app-user-dashboard [someInput]="randomInputCount" #dashboard></app-user-dashboard>
 
 
 <div class="">
     <br>
-    <h1 class="text-center" style="font-size: 2rem;font-weight: bold;color:darkgrey; font-family: cursive;">Checkout Page</h1>
+    <h1 class="text-center" style="font-size: 2rem;font-weight: bold;color:darkgrey; font-family: cursive;">Checkout</h1>
     <br>
     <br>
     <br>
     <div class="row">
         <div class="col-2 offset-1">
-            <h1 class="text-primary">Your Cart (<span style="font-weight: bold;">{{itemsInCart.length}}</span>)</h1>
+            <h1 class="text-primary">Your Cart (<span style="font-weight: bold;">{{(itemsInCart|distnctParaFilter:'itemCategory').length}}</span>)</h1>
         </div>
         <div class="col-2 offset-5">
             <h1 class="text-primary">Order Details</h1>
@@ -34,11 +34,11 @@
                                 <table class="table table-borderless" style="text-align: left;">
                                     <tr style="vertical-align: middle;">
                                         <td width="125px">
-                                            <img [src]="item.itemImageUrl" width="120px" height="100px">
+                                            <a href="/user/product/{{item.itemId}}"><img [src]="item.itemImageUrl" width="120px" height="100px"></a>
                                         </td>
                                         <td style="font-weight: bold;">
                                             <div class="offset-1">
-                                                {{item.itemName}}
+                                                <a style="color: rgb(138, 74, 175);" href="/user/product/{{item.itemId}}">{{item.itemName}}</a>
                                                 <br><br>
                                                 <span style="color: gray;font-weight: 100;">Category: {{item.itemCategory}}</span>
                                             </div>
@@ -60,7 +60,7 @@
                                     </table>
                                 </div>
                             </td>
-                            <td style="font-weight: bold;" align="right"><span style="font-weight: lighter;">&#8377;</span> {{item.unitPrice*getDuplicateItemQuantityInCart(item.itemId)}}</td>
+                            <td style="font-weight: bold;" align="right"><span style="font-weight: lighter;">&#8377;</span> {{math.ceil(item.unitPrice*getDuplicateItemQuantityInCart(item.itemId)*100)/100}}</td>
                         </tr>
                     </ng-template>
                 </tbody>
