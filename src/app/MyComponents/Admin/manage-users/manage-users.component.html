@@ -51,17 +51,17 @@
                 <ng-template [ngIf]="noOfResults*(pageNo-1) <= i && i < noOfResults*pageNo">
                     <tr>
                         <td [innerHTML]="i+1"></td>
-                        <td [innerHTML]="user.userId"></td>
-                        <td><div [innerHTML]="user.username"></div></td>
-                        <td [innerHTML]="user.firstName"></td>
-                        <td [innerHTML]="user.lastName"></td>
-                        <td [innerHTML]="user.primaryEmail"></td>
-                        <td [innerHTML]="user.primaryPhoneNo"></td>
+                        <td [innerHTML]="user.userId | safeHtmlPipe"></td>
+                        <td><div [innerHTML]="user.username | safeHtmlPipe"></div></td>
+                        <td [innerHTML]="user.firstName | safeHtmlPipe"></td>
+                        <td [innerHTML]="user.lastName | safeHtmlPipe"></td>
+                        <td [innerHTML]="user.primaryEmail | safeHtmlPipe"></td>
+                        <td [innerHTML]="user.primaryPhoneNo | safeHtmlPipe"></td>
                         <td [innerHTML]="user.dateOfBirth|date"></td>
-                        <td [innerHTML]="user.contacts.length"></td>
-                        <td [innerHTML]="user.cart.itemsInCart.length"></td>
-                        <td [innerHTML]="'<b>' + getNoOfPurchasesMade(user.userId) +'</b>'"></td>
-                        <td><b [innerHTML]="getTotalAmountOfPurchasesMadeForUser(user.userId)"></b></td>
+                        <td [innerHTML]="user.contacts.length | safeHtmlPipe"></td>
+                        <td [innerHTML]="user.cart.itemsInCart.length | safeHtmlPipe"></td>
+                        <td [innerHTML]="'<b>' + getNoOfPurchasesMade(user.userId) +'</b>' | safeHtmlPipe"></td>
+                        <td><b [innerHTML]="getTotalAmountOfPurchasesMadeForUser(user.userId) | safeHtmlPipe"></b></td>
                         <!-- <td>{{i+1}}</td>
                         <td>{{user.userId}}</td>
                         <td>{{user.username}}</td>

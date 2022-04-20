@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { disableDebugTools } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BasicServicesService } from 'src/app/Services/basic-services.service';
+import { LoaderServiceService } from 'src/app/Services/CommonServices/loader-service.service';
 import { User } from '../MODELS/user';
 
 @Component({
@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   
   reg_btn_disable:String="false";
   isRegistrationSuccess:Boolean=false;
+  isDisplayVerifyOtp:boolean=false;
   message:any;
   emailcheck:any;
   usernamecheck:any;
@@ -21,6 +22,10 @@ export class RegisterComponent implements OnInit {
   user:User=new User();
   hzp:MatSnackBarHorizontalPosition;
   vtclp:MatSnackBarVerticalPosition;
+  otp:string;
+  timer:Date;
+  minutesLeft;
+  secondsLeft;
 
 
   incorrectvaluescheck() {
@@ -30,18 +35,57 @@ export class RegisterComponent implements OnInit {
   }
 
   registerclick() {
+    this.loaderService.showLoaderForSomeTime(4000);
     console.log('registerclick() executed');
     this.keyupemail();
     this.keyupusername();
     this.keyupphoneno();
 
-    if(this.emailcheck=='EmailAvailable'&&this.usernamecheck=='UsernameAvailable'&&this.phonenocheck=='PhonenoAvailable'&&this.user.dateOfBirth&&this.user.dateOfBirth!=null&&this.user.firstName!=null&&this.user.firstName!=""&&this.user.lastName!=null&&this.user.lastName!=""&&this.user.password!=null&&this.user.password!="")
-    this.service.doRegistration(this.user).subscribe((response)=>{this.message=response;if(response=="Registration Success"){this.isRegistrationSuccess=true;console.log(this.message);this.snkbar.open(this.message,"OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom',duration:4000})}});
+    if(this.emailcheck=='EmailAvailable'&&this.usernamecheck=='UsernameAvailable'&&this.phonenocheck=='PhonenoAvailable'&&this.user.dateOfBirth&&this.user.dateOfBirth!=null&&this.user.firstName!=null&&this.user.firstName!=""&&this.user.lastName!=null&&this.user.lastName!=""&&this.user.password!=null&&this.user.password!="") {
+      this.isDisplayVerifyOtp = true;
+      this.service.sendRegistrationOtp(this.user).subscribe((response) => {
+        if(response != 'OTP sent') {
+          this.isDisplayVerifyOtp = false;
+          this.snkbar.open(response.toString(),"OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom',duration:10000});
+        }
+        if(response == 'OTP sent') {
+          this.timer = new Date();
+          this.timer.setTime(0);
+          this.timer.setMinutes(20);
+          this.timer.setSeconds(0);
+          let interval = setInterval(()=>{
+            if(this.timer.getMinutes() < 1) {
+              if(this.timer.getSeconds() < 1) {
+                clearInterval(interval);
+                this.isDisplayVerifyOtp = false;
+                this.snkbar.open('OTP Expired!! Please Try Again !!',"OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom',duration:10000});
+              }
+            }
+            this.minutesLeft = this.timer.getMinutes();
+            this.secondsLeft = this.timer.getSeconds();
+            this.timer.setTime(this.timer.getTime()-500); 
+          },500);
+        }
+      });
+    }
     else {
       this.incorrectvaluescheck();
       this.snkbar.open("Invalid Form Details!","OK",{horizontalPosition:'center',verticalPosition:'top',duration:4000});
     }
-    
+  }
+  onOtpSubmit() {
+      this.service.doRegistration(this.user,this.otp).subscribe((response) => {
+        this.message=response;
+        if(response=="Registration Success") {
+          this.isRegistrationSuccess=true;
+          console.log(this.message);
+          this.snkbar.open(this.message,"OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom',duration:4000});
+        } else {
+          this.user.dateOfBirth=null;this.user.firstName='';this.user.lastName='';this.user.password='';this.user.primaryEmail='';this.user.primaryPhoneNo='';this.user.username='';
+          this.isDisplayVerifyOtp = false;
+          this.snkbar.open(this.message,"OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom',duration:4000});
+        }
+      });
   }
   keyupemail() {
     if(this.user.primaryEmail!=null&&this.user.primaryEmail!=''&&this.user.primaryEmail!=undefined) {
@@ -69,7 +113,7 @@ export class RegisterComponent implements OnInit {
     window.location.reload();
   }
 
-  constructor(private service: BasicServicesService,private snkbar:MatSnackBar,private router:Router) {}
+  constructor(private service: BasicServicesService,private snkbar:MatSnackBar,private router:Router, private loaderService:LoaderServiceService) {}
 
   ngOnInit(): void {
   }

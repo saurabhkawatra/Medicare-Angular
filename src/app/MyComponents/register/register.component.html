@@ -4,7 +4,7 @@
         <h1 class="text-primary" style="font-size: 50px; margin-bottom: 30px;">Register</h1>
 
 
-        <div *ngIf="isRegistrationSuccess==false">
+        <div *ngIf="isRegistrationSuccess == false && isDisplayVerifyOtp == false">
                 <form (ngSubmit)="registerclick()">
 
                     <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
@@ -23,14 +23,14 @@
                     <p *ngIf="user.lastName==''" class="text-danger" style="text-align: right;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p><br>
 
 
-                <div align="left" style="margin-left: 50px;"><mat-form-field appearance="outline" style="width: 200px;font-size: 15px;">
-                        <mat-label>Date Of Birth</mat-label>
-                        <input name="namedate" required type="date" [(ngModel)]="user.dateOfBirth" matInput>
-                    </mat-form-field>
-                    <span style="font-size: 20px;" *ngIf="!user.dateOfBirth instanceof Date">&nbsp;&#10071;</span>
-                    <p *ngIf="!user.dateOfBirth instanceof Date" class="text-danger" style="text-align: left;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p>
-                    <span style="font-size: 20px;" *ngIf="user.dateOfBirth instanceof Date">&#10004;&#65039;</span>
-                </div><br>
+                    <div align="left" style="margin-left: 50px;"><mat-form-field appearance="outline" style="width: 200px;font-size: 15px;">
+                            <mat-label>Date Of Birth</mat-label>
+                            <input name="namedate" required type="date" [(ngModel)]="user.dateOfBirth" matInput>
+                        </mat-form-field>
+                        <span style="font-size: 20px;" *ngIf="!user.dateOfBirth instanceof Date">&nbsp;&#10071;</span>
+                        <p *ngIf="!user.dateOfBirth instanceof Date" class="text-danger" style="text-align: left;margin-right: 55px;margin-top: -15px;margin-bottom: 0px; font-size: 10px;">Required, cannot leave empty!</p>
+                        <span style="font-size: 20px;" *ngIf="user.dateOfBirth instanceof Date">&#10004;&#65039;</span>
+                    </div><br>
 
 
                     <mat-form-field appearance="outline" style="width: 600px;font-size: 15px;">
@@ -80,6 +80,23 @@
                     <h3 style="text-align: right;">Already Registered - <a routerLink="/login">Login Here</a></h3>
                  
                 </form>
+        </div>
+
+        <div *ngIf="isDisplayVerifyOtp == true && isRegistrationSuccess==false">
+            <label class="text-primary">Enter The <b class="text-dark">OTP</b> received by you in your <b>Email</b> Address</label><br>
+            <div class="row">
+                <div class="col-5 offset-3">
+                    <mat-form-field appearance="outline" style="width: 300px;font-size: 15px;">
+                        <mat-label>Enter OTP</mat-label>
+                        <input required name="namephoneno" matInput type="text" [(ngModel)]="otp" pattern="[0-9|a-z|A-Z]{6}">
+                    </mat-form-field>
+                </div>
+                <div class="offset-1 col-2" align="right">
+                    <p style="margin: 0;font-size: 10px;color: red;">**OTP will Expire in</p>
+                    <b><h3 style="margin: 0;"></h3>( {{minutesLeft}} : {{secondsLeft}} )</b>
+                </div>
+            </div>
+            <button mat-raised-button color="primary" (click)="onOtpSubmit()">Submit OTP</button>
         </div>
 
         <div *ngIf="isRegistrationSuccess==true">

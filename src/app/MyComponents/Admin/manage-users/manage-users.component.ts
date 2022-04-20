@@ -41,11 +41,11 @@ export class ManageUsersComponent implements OnInit {
 
   searchUser(searchKey, event:KeyboardEvent) {
     if(event == null) {
+      this.sanitizeDisplayList();
       this.searchValue = searchKey;
       this.pageNo = 1;
       if(searchKey == '') {
         this.displayList = this.UserList.filter(user => user);
-        this.highlightTheSearchKey(searchKey);
       } else {
         this.displayList = this.UserList.filter((user) => {
           if(user.username.toLowerCase().match('.*'+searchKey.toLowerCase()+'.*'))
@@ -66,11 +66,11 @@ export class ManageUsersComponent implements OnInit {
         this.highlightTheSearchKey(searchKey);
       }
     } else if(event.key == 'Enter') {
+      this.sanitizeDisplayList();
       this.searchValue = searchKey;
       this.pageNo = 1;
       if(searchKey == '') {
         this.displayList = this.UserList.filter(user => user);
-        this.highlightTheSearchKey(searchKey);
       } else {
         this.displayList = this.UserList.filter((user) => {
           if(user.username.toLowerCase().match('.*'+searchKey.toLowerCase()+'.*'))
@@ -96,24 +96,50 @@ export class ManageUsersComponent implements OnInit {
 
   highlightTheSearchKey(searchKey) {
     // console.log('TESTING.......................',this.tableBody)
-    for(let i=0;i<this.tableBody.nativeElement.children.length;i++) {
-      if(i != this.tableBody.nativeElement.children.length - 1) {
-        for(let j=0;j<this.tableBody.nativeElement.children[i].children.length;j++) {
-          this.renderer.setProperty(this.tableBody.nativeElement.children[i].children[j],'innerHTML',this.tableBody.nativeElement.children[i].children[j].innerHTML.replace(searchKey,'<span  style="background-color: yellow;">'+searchKey+'</span>'));
-          // this.tableBody.nativeElement.children[i].children[j].innerHTML = this.tableBody.nativeElement.children[i].children[j].innerHTML.replace(searchKey,'<span  style="background-color: yellow;">'+searchKey+'</span>');
-          console.log(this.tableBody.nativeElement.children[i].children[j]);
-        };
-      }
-    }
-    // if(this.displayList.length != 0) {
-    //   for(let user of this.displayList) {
-    //     for(let key in user) {
-    //       if(key == 'username' || key == 'firstName' || key == 'lastName' || key == 'primaryEmail' || key == 'primaryPhoneNo' || key == 'dateOfBirth')
-    //         user[key] = user[key].replace(searchKey,'<span  style="background-color: yellow;">'+searchKey+'</span>');
-    //     }
+    // for(let i=0;i<this.tableBody.nativeElement.children.length;i++) {
+    //   if(i != this.tableBody.nativeElement.children.length - 1) {
+    //     for(let j=0;j<this.tableBody.nativeElement.children[i].children.length;j++) {
+    //       this.renderer.setProperty(this.tableBody.nativeElement.children[i].children[j],'innerHTML',this.tableBody.nativeElement.children[i].children[j].innerHTML.replace(searchKey,'<span  style="background-color: yellow;">'+searchKey+'</span>'));
+    //       // this.tableBody.nativeElement.children[i].children[j].innerHTML = this.tableBody.nativeElement.children[i].children[j].innerHTML.replace(searchKey,'<span  style="background-color: yellow;">'+searchKey+'</span>');
+    //       console.log(this.tableBody.nativeElement.children[i].children[j]);
+    //     };
     //   }
     // }
+    if(this.displayList.length != 0) {
+      for(let user of this.displayList) {
+        for(let key in user) {
+          if(key == 'username' || key == 'firstName' || key == 'lastName' || key == 'primaryEmail' || key == 'primaryPhoneNo') {
+            let resultSet = user[key].match(new RegExp(searchKey,"ig"));
+            let lastPosition=0; let newPosition;
+            if(resultSet != null)
+            for(let i=0;i<resultSet.length;i++) {
+              newPosition = user[key].indexOf(resultSet[i],lastPosition);
+              user[key] = user[key].substring(0,newPosition) + '<span style="background-color: yellow;">' + user[key].substring(newPosition,newPosition+resultSet[i].length) + '</span>' + user[key].substring(newPosition+resultSet[i].length,user[key].length);
+              // user[key] = user[key].replace(resultSet[i],'<span style="background-color: yellow;">'+resultSet[i]+'</span>');
+              lastPosition = newPosition + 40 + resultSet[i].length + 7;
+            }
+          }   
+        }
+      }
+    }
 
+  }
+
+  sanitizeDisplayList() {
+      if(this.displayList?.length != 0)
+      for(let user of this.displayList) {
+        for(let key in user) {
+          if(key == 'username' || key == 'firstName' || key == 'lastName' || key == 'primaryEmail' || key == 'primaryPhoneNo') {
+            if(user[key].match('</span>') != null) {
+              let matchArray = user[key].match(new RegExp('</span>','g'));
+              for(let i=0;i<matchArray.length;i++) {
+                user[key] = user[key].replace('<span style="background-color: yellow;">','');
+                user[key] = user[key].replace('</span>','');
+              }
+            }
+          }
+        } 
+      }
   }
 
   getNavButtonStyle(pgNo) {

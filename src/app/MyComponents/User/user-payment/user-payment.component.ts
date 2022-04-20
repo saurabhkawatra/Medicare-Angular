@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoaderServiceService } from 'src/app/Services/CommonServices/loader-service.service';
 import { UserServiceService } from 'src/app/Services/UserService/user-service.service';
-import { LoaderComponent } from '../loader/loader.component';
 import { UserDashboardComponent } from '../user-dashboard/user-dashboard.component';
 
 @Component({
@@ -17,12 +17,10 @@ export class UserPaymentComponent implements OnInit {
   cardHolderName;
   @ViewChild('dashboard') dashboard:UserDashboardComponent;
   @ViewChild('togglebtn') togglebtn:ElementRef;
-  @ViewChild('loader') loader:LoaderComponent;
-  showSpinner:boolean = false;
 
 
 
-  constructor(private router:Router,private userService:UserServiceService) { }
+  constructor(private router:Router,private userService:UserServiceService, private loaderService:LoaderServiceService) { }
 
 
   onPayClick() {
@@ -35,7 +33,7 @@ export class UserPaymentComponent implements OnInit {
         let obj={'cardNo':this.cardNo,'cvv':this.cvv,'cardExpireDate':this.cardExpireDate,'cardHolderName':this.cardHolderName};
         console.log('if block');
         console.log(obj);
-        this.userService.paymentmade(obj).subscribe(data=>{/* this.togglebtn.nativeElement.click(); */this.showSpinner=true; console.log('received response -',data['message']); setTimeout(() => {/* this.togglebtn.nativeElement.click(); */this.router.navigateByUrl('/user/orderDetails');}, 2000);},error=>{console.log('error from user payment comp onPayClick()',error);});
+        this.userService.paymentmade(obj).subscribe(data=>{/* this.togglebtn.nativeElement.click(); */this.loaderService.setShowLoader(true); console.log('received response -',data['message']); setTimeout(() => {/* this.togglebtn.nativeElement.click(); */this.router.navigateByUrl('/user/orderDetails');}, 2000);},error=>{console.log('error from user payment comp onPayClick()',error);});
     } else {
         console.log('Incomplete Details');
     }

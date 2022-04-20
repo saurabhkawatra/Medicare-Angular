@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '../MyComponents/MODELS/user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,11 @@ export class BasicServicesService {
     // this.params=this.params.set("para1","just checking");
     return this.http.post(this.baseURL+"/login",loginInfo);
   }
-
-  doRegistration(registrationInfo) {
-    return this.http.post(this.baseURL+"/register",registrationInfo,{responseType:"text" as "json"});
+  sendRegistrationOtp(reg_user:User) {
+    return this.http.post(this.baseURL+'/sendRegistrationOtp',reg_user,{responseType:"text" as "json"});
+  }
+  doRegistration(registrationInfo:User, otp:string) {
+    return this.http.post(this.baseURL+"/register"+"?otp="+otp,registrationInfo,{responseType:"text" as "json"});
   }
 
   checkusername(username) {

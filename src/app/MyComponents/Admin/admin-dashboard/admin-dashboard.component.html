@@ -40,7 +40,7 @@
                             <tr>
                                 <td>{{i+1}}</td>
                                 <td><a href="/user/product/{{item.itemId}}"><img height="30px" width="40px" [src]="item.itemImageUrl"></a></td>
-                                <td><a href="/user/product/{{item.itemId}}">{{item.itemName}}</a></td>
+                                <td style="max-width: 120px;word-wrap: break-word;"><a href="/user/product/{{item.itemId}}">{{item.itemName}}</a></td>
                                 <td><span style="font-weight: bold;">x{{getItemQuantity(item.itemId)}}</span></td>
                                 <td>&#8377; {{item.unitPrice}}</td>
                             </tr>

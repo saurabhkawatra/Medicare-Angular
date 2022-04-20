@@ -14,7 +14,7 @@ import { RegisterComponent } from './MyComponents/register/register.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './MyComponents/header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicServicesService } from './Services/basic-services.service';
@@ -47,6 +47,7 @@ import { AboutComponent } from './MyComponents/about/about.component';
 import { ProductDescriptionComponent } from './MyComponents/User/product-description/product-description.component';
 import { ManageUsersComponent } from './MyComponents/Admin/manage-users/manage-users.component';
 import { LoaderComponent } from './MyComponents/User/loader/loader.component';
+import { SafeHtmlPipePipe } from './Pipes/safe-html-pipe.pipe';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { LoaderComponent } from './MyComponents/User/loader/loader.component';
     AboutComponent,
     ProductDescriptionComponent,
     ManageUsersComponent,
-    LoaderComponent
+    LoaderComponent,
+    SafeHtmlPipePipe
   ],
   imports: [
     BrowserModule,
@@ -91,6 +93,7 @@ import { LoaderComponent } from './MyComponents/User/loader/loader.component';
     MatIconModule,
     MatMenuModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatSnackBarModule,
     MatSelectModule,

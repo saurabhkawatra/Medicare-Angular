@@ -73,17 +73,17 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let item of purchase.itemList|distnctParaFilter:'itemId'">
-                                    <td>{{item.itemName}}</td>
+                                    <td style="max-width: 120px;word-wrap: break-word;">{{item.itemName}}</td>
                                     <td><img [src]="item.itemImageUrl" width="70vh" height="50vw"></td>
-                                    <td>{{item.itemCompany}}</td>
-                                    <td>{{item.itemCategory}}</td>
+                                    <td style="max-width: 120px;word-wrap: break-word;">{{item.itemCompany}}</td>
+                                    <td style="max-width: 120px;word-wrap: break-word;">{{item.itemCategory}}</td>
                                     <td>{{getDuplicateItemQuantity(item.itemId,i)}}</td>
                                     <td>&#8377; {{item.unitPrice}}</td>
                                     <td>&#8377; {{getDuplicateItemQuantity(item.itemId,i)*item.unitPrice}}</td>
                                 </tr>
                                 <tr style="border-top: black dotted 2px;">
                                     <th colspan="6" style="text-align: center;font-size: 25px;">Total Amount Paid</th>
-                                    <td style="font-size: 20px;font-weight: bold;background-color: rgb(211, 207, 207);">&#8377; {{getTotalCost(i)}}</td>
+                                    <td style="font-size: 20px;font-weight: bold;background-color: rgb(211, 207, 207);max-width: 150px;word-wrap: break-word;">&#8377; {{getTotalCost(i)}}</td>
                                 </tr>
                             </tbody>
                         </table>
