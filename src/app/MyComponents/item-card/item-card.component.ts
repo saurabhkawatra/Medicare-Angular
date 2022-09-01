@@ -21,6 +21,7 @@ export class ItemCardComponent implements OnInit {
       
       this.userService.addItemToCart(item).subscribe(data=>{
         this.snkbar.open(data['message'],'OK',{horizontalPosition:'center',verticalPosition:'bottom',duration:4000});
+        this.snkbar.open(data['message'],'OK',{horizontalPosition:'center',verticalPosition:'bottom',duration:4000});
         this.addButtonClickOnItemCard.emit(item);
         this.ngOnInit();
       },error=>{console.log('error from addtocart() item-card-compo',error);});
