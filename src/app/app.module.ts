@@ -48,6 +48,7 @@ import { ProductDescriptionComponent } from './MyComponents/User/product-descrip
 import { ManageUsersComponent } from './MyComponents/Admin/manage-users/manage-users.component';
 import { LoaderComponent } from './MyComponents/User/loader/loader.component';
 import { SafeHtmlPipePipe } from './Pipes/safe-html-pipe.pipe';
+import { PopUpDialogComponent } from './MyComponents/pop-up-dialog/pop-up-dialog.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { SafeHtmlPipePipe } from './Pipes/safe-html-pipe.pipe';
     ProductDescriptionComponent,
     ManageUsersComponent,
     LoaderComponent,
-    SafeHtmlPipePipe
+    SafeHtmlPipePipe,
+    PopUpDialogComponent
   ],
   imports: [
     BrowserModule,

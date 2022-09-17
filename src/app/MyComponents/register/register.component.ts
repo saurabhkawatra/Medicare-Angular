@@ -43,16 +43,18 @@ export class RegisterComponent implements OnInit {
 
     if (this.emailcheck == 'EmailAvailable' && this.usernamecheck == 'UsernameAvailable' && this.phonenocheck == 'PhonenoAvailable' && this.user.dateOfBirth && this.user.dateOfBirth != null && this.user.firstName != null && this.user.firstName != "" && this.user.lastName != null && this.user.lastName != "" && this.user.password != null && this.user.password != "") {
       this.isDisplayVerifyOtp = true;
+      this.otp = '';
       this.service.sendRegistrationOtp(this.user).subscribe((response) => {
-        if (response != 'OTP sent') {
+        let convertedResponse = JSON.parse(response.toString());
+        if (convertedResponse.message != 'OTP sent') {
           this.isDisplayVerifyOtp = false;
-          this.snkbar.open(response.toString(), "OK", { horizontalPosition: this.hzp = 'center', verticalPosition: this.vtclp = 'bottom', duration: 10000 });
+          this.snkbar.open(convertedResponse.message, "OK", { horizontalPosition: this.hzp = 'center', verticalPosition: this.vtclp = 'bottom', duration: 10000 });
         }
-        if (response == 'OTP sent') {
+        if (convertedResponse.message == 'OTP sent') {
           this.timer = new Date();
           this.timer.setTime(0);
-          this.timer.setMinutes(20);
-          this.timer.setSeconds(0);
+          this.timer.setMinutes((convertedResponse.expirationTime / 1000) / 60);
+          this.timer.setSeconds((convertedResponse.expirationTime / 1000) % 60);
           let interval = setInterval(() => {
             if (this.timer.getMinutes() < 1) {
               if (this.timer.getSeconds() < 1) {

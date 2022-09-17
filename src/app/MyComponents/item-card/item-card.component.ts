@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PopUpService } from 'src/app/Services/CommonServices/pop-up.service';
 import { UserServiceService } from 'src/app/Services/UserService/user-service.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class ItemCardComponent implements OnInit {
   @Output('addButtonClickOnItemCard') addButtonClickOnItemCard = new EventEmitter<any>();
   itemsInCart
 
-  constructor(private snkbar:MatSnackBar,private userService:UserServiceService) { }
+  constructor(private snkbar:MatSnackBar,private userService:UserServiceService,private popUpService: PopUpService) { }
 
   
 
@@ -21,7 +22,7 @@ export class ItemCardComponent implements OnInit {
       
       this.userService.addItemToCart(item).subscribe(data=>{
         this.snkbar.open(data['message'],'OK',{horizontalPosition:'center',verticalPosition:'bottom',duration:4000});
-        this.snkbar.open(data['message'],'OK',{horizontalPosition:'center',verticalPosition:'bottom',duration:4000});
+        this.popUpService.showPopUpBox(data['message'],4000);
         this.addButtonClickOnItemCard.emit(item);
         this.ngOnInit();
       },error=>{console.log('error from addtocart() item-card-compo',error);});

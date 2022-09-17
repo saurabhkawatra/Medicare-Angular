@@ -14,7 +14,7 @@ export class GlobalInterceptorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    let AUTH_TOKEN=localStorage.getItem('authToken');
+    let AUTH_TOKEN=sessionStorage.getItem('authToken');
     console.log('Setting header..AUTH_TOKEN',AUTH_TOKEN);
     if(AUTH_TOKEN==null)
     return next.handle(request);

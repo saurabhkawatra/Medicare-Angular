@@ -72,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of purchase.itemList|distnctParaFilter:'itemId'">
+                                <tr *ngFor="let item of purchase.itemForPurchaseHistoryList|distnctParaFilter:'itemId'">
                                     <td style="max-width: 120px;word-wrap: break-word;">{{item.itemName}}</td>
                                     <td><img [src]="item.itemImageUrl" width="70vh" height="50vw"></td>
                                     <td style="max-width: 120px;word-wrap: break-word;">{{item.itemCompany}}</td>

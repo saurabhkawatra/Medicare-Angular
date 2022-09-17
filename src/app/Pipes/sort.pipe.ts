@@ -17,10 +17,10 @@ export class SortPipe implements PipeTransform {
                           itemList.sort((a,b)=>{
                             let aTotalAmount = 0;
                             let bTotalAmount = 0;
-                            a.itemList.forEach(item => {
+                            a.itemForPurchaseHistoryList.forEach(item => {
                               aTotalAmount = aTotalAmount + item.unitPrice;
                             });
-                            b.itemList.forEach(item => {
+                            b.itemForPurchaseHistoryList.forEach(item => {
                               bTotalAmount = bTotalAmount + item.unitPrice;
                             });
                             if(aTotalAmount > bTotalAmount) {

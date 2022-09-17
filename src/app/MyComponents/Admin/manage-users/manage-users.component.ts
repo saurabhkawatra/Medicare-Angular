@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AdminServiceService } from 'src/app/Services/AdminService/admin-service.service';
+import { PopUpService } from 'src/app/Services/CommonServices/pop-up.service';
 
 @Component({
   selector: 'app-manage-users',
@@ -32,14 +33,19 @@ export class ManageUsersComponent implements OnInit {
     return 0;
     let total = 0;
     this.purchaseHistoryListAndUserIdMap.get(userId).forEach(singlePurchaseHistory => {
-      singlePurchaseHistory.itemList.forEach(item => {
+      singlePurchaseHistory.itemForPurchaseHistoryList.forEach(item => {
         total = total + item.unitPrice;        
       });
     });
     return total;
   }
 
+  noOfResultsChange() {
+    this.pageNo = 1;
+  }
+
   searchUser(searchKey, event:KeyboardEvent) {
+    this.popUpService.showPopUpBox('seraching.......');
     if(event == null) {
       this.sanitizeDisplayList();
       this.searchValue = searchKey;
@@ -154,9 +160,10 @@ export class ManageUsersComponent implements OnInit {
       this.pageNo = pgNo;
   }
 
-  constructor(private adminService:AdminServiceService, private renderer:Renderer2) { }
+  constructor(private adminService:AdminServiceService, private renderer:Renderer2, private popUpService: PopUpService) { }
 
   ngOnInit(): void {
+    this.popUpService.showPopUpBox('skadjlkasdkl');
     this.adminService.getallusers().subscribe(data => {
       this.UserList=data;
       this.UserList.forEach(user => {this.displayList.push(Object.assign({},user));});

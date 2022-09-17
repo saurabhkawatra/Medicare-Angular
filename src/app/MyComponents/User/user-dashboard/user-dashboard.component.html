@@ -24,7 +24,7 @@
 </h3>
         
             <div class="row">
-                <div *ngIf="cartHoverBox" class="col-3 offset-6" style="background-color: azure;position: absolute;margin-top:-2.5%;height: 250px;z-index: 3000;border-top-right-radius: 20px;border-top-left-radius: 20px;box-shadow: -5px 5px 15px 5px gray;">
+                <div #cartUpperElement *ngIf="isCartVisible" class="col-3 offset-6" style="background-color: azure;position: absolute;margin-top:-2.5%;height: 250px;z-index: 3000;border-top-right-radius: 20px;border-top-left-radius: 20px;box-shadow: -5px 5px 15px 5px gray;">
                     <div class="row" style="font-weight: bold;">
                         <div class="col-10 text-primary" style="text-align: center;font-size: 30px;line-height: 50px;">
                             <span style="vertical-align: sub;text-shadow: 0px 0px 10px lightskyblue;text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cart</span>
@@ -66,7 +66,7 @@
                         <hr>
                     </div> -->
                 </div>
-                <div *ngIf="cartHoverBox" class="col-3 offset-6" style="background-color: azure;position: absolute;margin-top: 190px;line-height: 50px;z-index: 3000;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;box-shadow: -5px 5px 15px 5px gray;text-align: center;">
+                <div #cartLowerElement *ngIf="isCartVisible" class="col-3 offset-6" style="background-color: azure;position: absolute;margin-top: 190px;line-height: 50px;z-index: 3000;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;box-shadow: -5px 5px 15px 5px gray;text-align: center;">
                     <span style="vertical-align: middle;"><a routerLink="/user/checkout"><span style="font-size: 30px;">Checkout</span></a><span *ngIf="totalCost!=0" style="font-size: 20px;">&nbsp;( &#8377; {{totalCost}})</span> </span>
                 </div>
     

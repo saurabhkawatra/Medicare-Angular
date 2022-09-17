@@ -69,6 +69,11 @@ const routes: Routes = [
     {path:"orderDetails",component:OrderDetailsComponent,canActivate:[UserGuardGuard]},
     {path:"product/:itemId",component:ProductDescriptionComponent,canActivate:[UserGuardGuard]}
   ]
+},
+{
+  path:'**',
+  component:IndexComponent,
+  redirectTo:''
 }
 ];
 

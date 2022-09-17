@@ -5,7 +5,7 @@
         <div class="col-3">
             <mat-form-field class="container-fluid" appearance="outline">
                 <mat-label>Showing Results</mat-label>
-                <mat-select [(value)]="noOfResults">
+                <mat-select [(value)]="noOfResults" (valueChange)="noOfResultsChange()">
                     <mat-option *ngFor="let size of noOfResultsSizeOptions" [value]="size">{{ size }}</mat-option>
                 </mat-select>
             </mat-form-field>

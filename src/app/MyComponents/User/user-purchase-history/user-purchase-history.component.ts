@@ -18,13 +18,13 @@ export class UserPurchaseHistoryComponent implements OnInit {
 
   getDuplicateItemQuantity(itemId,index) {
     let count=0;
-    for(let item of this.listOfPurchases[index].itemList) {if(item.itemId==itemId) count++;}
+    for(let item of this.listOfPurchases[index].itemForPurchaseHistoryList) {if(item.itemId==itemId) count++;}
     return count;
   }
 
   getTotalCost(index) {
     let totalCost=0;
-    for(let item of this.listOfPurchases[index].itemList) {totalCost=totalCost+item.unitPrice;}
+    for(let item of this.listOfPurchases[index].itemForPurchaseHistoryList) {totalCost=totalCost+item.unitPrice;}
     return totalCost;
   }
 

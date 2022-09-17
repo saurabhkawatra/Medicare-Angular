@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           this.data.username="";
           this.data.password="";
            console.log("response = ",response);
-          localStorage.setItem('authToken',this.token);
+          sessionStorage.setItem('authToken',this.token);
           });
       else {
         this.snkbar.open("Fields cannot be Empty!!","OK",{horizontalPosition:this.hzp='center',verticalPosition:this.vtclp='bottom', duration:4000});

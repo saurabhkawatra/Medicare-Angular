@@ -11,19 +11,19 @@ import { UserServiceService } from 'src/app/Services/UserService/user-service.se
 export class OrderDetailsComponent implements OnInit {
 
   latestPurchaseDetails:any;
-  paymentReceived = false;
+  paymentReceived: boolean = false;
 
-  constructor(private userService:UserServiceService,private router:Router, private loaderService:LoaderServiceService) {this.latestPurchaseDetails={id:'',purchaseDate:'',itemList:[{itemId:'',itemName:'',itemCompany:'',itemCategory:''}]} }
+  constructor(private userService:UserServiceService,private router:Router, private loaderService:LoaderServiceService) {this.latestPurchaseDetails={id:'',purchaseDate:'',itemForPurchaseHistoryList:[{itemId:'',itemName:'',itemCompany:'',itemCategory:''}]} }
 
   getDuplicateItemQuantity(itemId) {
     let count=0;
-    for(let item of this.latestPurchaseDetails.itemList) {if(item.itemId==itemId) count++;}
+    for(let item of this.latestPurchaseDetails.itemForPurchaseHistoryList) {if(item.itemId==itemId) count++;}
     return count;
   }
 
   getTotalCost() {
     let totalCost=0;
-    for(let item of this.latestPurchaseDetails.itemList) {totalCost=totalCost+item.unitPrice;}
+    for(let item of this.latestPurchaseDetails.itemForPurchaseHistoryList) {totalCost=totalCost+item.unitPrice;}
     return totalCost;
   }
 
