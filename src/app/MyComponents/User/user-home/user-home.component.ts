@@ -16,6 +16,8 @@ export class UserHomeComponent implements OnInit {
   filterCriterea='';
   fwCompany='';
   dashboardToggle=true;
+  @ViewChild('userDashboard')
+  dashboard: UserDashboardComponent;
 
   constructor(private userService:UserServiceService) { }
 
@@ -24,7 +26,6 @@ export class UserHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getAllItems().subscribe(data=>{this.itemList=data;},error=>{console.log('error from user home component',error);});
-
   }
 
 }

@@ -1,5 +1,5 @@
 <!-- <app-user-dashboard *ngIf="dashboardToggle"></app-user-dashboard> -->
-<app-user-dashboard [someInput]="giveSomeInput"></app-user-dashboard>
+<app-user-dashboard #userDashboard [someInput]="giveSomeInput"></app-user-dashboard>
 
 <div class="">
         <div class="row">
@@ -30,15 +30,15 @@
                                         <tr>
                                         <ng-template [ngIf]="i%3==0">
                                                         <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]!=null">
-                                                            <td><app-item-card (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]"></app-item-card></td>
+                                                            <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]"></app-item-card></td>
                                                         </ng-template>
 
                                                         <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]!=null">
-                                                            <td><app-item-card (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]"></app-item-card></td>
+                                                            <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]"></app-item-card></td>
                                                         </ng-template>
 
                                                         <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]!=null">
-                                                            <td><app-item-card (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]"></app-item-card></td>
+                                                            <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]"></app-item-card></td>
                                                         </ng-template>
                                         </ng-template>
                                         </tr>

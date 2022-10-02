@@ -16,6 +16,7 @@ import { ProductDescriptionComponent } from './MyComponents/User/product-descrip
 import { UserCheckoutComponent } from './MyComponents/User/user-checkout/user-checkout.component';
 import { UserHomeComponent } from './MyComponents/User/user-home/user-home.component';
 import { UserPaymentComponent } from './MyComponents/User/user-payment/user-payment.component';
+import { UserProfilePictureComponent } from './MyComponents/User/user-profile-picture/user-profile-picture.component';
 import { UserProfileComponent } from './MyComponents/User/user-profile/user-profile.component';
 import { UserPurchaseHistoryComponent } from './MyComponents/User/user-purchase-history/user-purchase-history.component';
 
@@ -67,7 +68,8 @@ const routes: Routes = [
     {path:"checkout",component:UserCheckoutComponent,canActivate:[UserGuardGuard]},
     {path:"payment",component:UserPaymentComponent,canActivate:[UserGuardGuard]},
     {path:"orderDetails",component:OrderDetailsComponent,canActivate:[UserGuardGuard]},
-    {path:"product/:itemId",component:ProductDescriptionComponent,canActivate:[UserGuardGuard]}
+    {path:"product/:itemId",component:ProductDescriptionComponent,canActivate:[UserGuardGuard]},
+    {path:"updateProfilePicture",component:UserProfilePictureComponent,canActivate:[UserGuardGuard]}
   ]
 },
 {

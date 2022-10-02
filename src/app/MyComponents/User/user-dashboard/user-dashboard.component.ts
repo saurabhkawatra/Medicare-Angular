@@ -44,7 +44,14 @@ export class UserDashboardComponent implements OnInit {
   getItemQuantity(itemId) {let q=0;for(let item of this.itemsInCart){if(item.itemId==itemId)q++;}return q;}
 
   ngOnInit(): void {
-    this.userService.getUserDetails().subscribe(data=>{this.user=data;},error=>{console.log('error from user dashboard',error);});
+    this.userService.getUserDetails().subscribe(data=>{
+      this.user=data;
+          let fr=new FileReader();
+          fr.readAsDataURL(this.user.profilePicture);
+          fr.onloadend = ()=> {
+            this.user.profilePicture=fr.result;
+          }
+    },error=>{console.log('error from user dashboard',error);});
     this.userService.getItemsInCart().subscribe(data=>{this.itemsInCart=data;this.totalCost=this.getTotalCost();},error=>{console.log('error from User dashboard getitemsinCart',error);});
     this.renderer.listen('window','click',(e:Event) => {
       if( !(this.cartUpperElement.nativeElement.contains(e.target)) && !(this.cartLowerElement.nativeElement.contains(e.target))) {

@@ -12,7 +12,7 @@ export class ItemCardComponent implements OnInit {
 
   @Input()item:any;
   @Output('addButtonClickOnItemCard') addButtonClickOnItemCard = new EventEmitter<any>();
-  itemsInCart
+  @Input() itemsInCart;
 
   constructor(private snkbar:MatSnackBar,private userService:UserServiceService,private popUpService: PopUpService) { }
 
@@ -59,7 +59,7 @@ getDuplicateItemQuantityInCart(itemId) {
 
 
   ngOnInit(): void {
-    this.userService.getItemsInCart().subscribe(data=>{this.itemsInCart=data;},error=>{console.log('error from item-card component',error);});
+    // this.userService.getItemsInCart().subscribe(data=>{this.itemsInCart=data;},error=>{console.log('error from item-card component',error);});
   }
 
 }

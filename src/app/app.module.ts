@@ -49,6 +49,7 @@ import { ManageUsersComponent } from './MyComponents/Admin/manage-users/manage-u
 import { LoaderComponent } from './MyComponents/User/loader/loader.component';
 import { SafeHtmlPipePipe } from './Pipes/safe-html-pipe.pipe';
 import { PopUpDialogComponent } from './MyComponents/pop-up-dialog/pop-up-dialog.component';
+import { UserProfilePictureComponent } from './MyComponents/User/user-profile-picture/user-profile-picture.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { PopUpDialogComponent } from './MyComponents/pop-up-dialog/pop-up-dialog
     ManageUsersComponent,
     LoaderComponent,
     SafeHtmlPipePipe,
-    PopUpDialogComponent
+    PopUpDialogComponent,
+    UserProfilePictureComponent
   ],
   imports: [
     BrowserModule,

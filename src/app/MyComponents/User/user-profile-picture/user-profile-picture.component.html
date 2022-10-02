@@ -1,0 +1,15 @@
+<app-user-dashboard [someInput]="dashboardRandomInput"></app-user-dashboard>
+<p>user-profile-picture works!</p>
+<!-- <div *ngIf="user.profilePicture != null && user.profilePicture != ''">
+    
+</div> -->
+<img [src]="inputImageFile?inputImage:'data:image/png;base64,'+inputImage" width="300px" [height]="height">
+<input #image type="file" (change)="onImageChange($event)">
+<br>
+<button mat-raised-button color="primary" (click)="onUpdateProfilePhotoClick()" [disabled]="inputImage==null">
+    Update
+</button>
+&nbsp;&nbsp;&nbsp;
+<button mat-fab color="warn" (click)="inputImage=null;">
+    Clear
+</button>

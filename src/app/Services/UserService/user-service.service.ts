@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -44,5 +44,11 @@ export class UserServiceService {
   }
   getItemByitemId(itemId) {
     return this.http.post(this.baseURL+'/getitembyId/'+itemId,null);
+  }
+
+  updateProfilePhoto(profilePhoto):any {
+    let form = new FormData();
+    form.append('profilePhotoImage',profilePhoto);
+    return this.http.post(this.baseURL+'/updateProfilePhoto',form);
   }
 }

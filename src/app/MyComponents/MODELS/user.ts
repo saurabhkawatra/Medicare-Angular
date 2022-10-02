@@ -7,6 +7,7 @@ export class User {
     password:String;
     primaryEmail:String;
     primaryPhoneNo:String;
+    profilePicture;
 
 
     constructor() {}
