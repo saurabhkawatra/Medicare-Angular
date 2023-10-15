@@ -20,6 +20,7 @@ export class AdminDashboardComponent implements OnInit {
   vtclp:MatSnackBarVerticalPosition;
   itemsInCart:any[];
   isCartVisible:boolean = false;
+  totalCost;
 
   logout() {
     this.service.logout().subscribe(data =>{
@@ -38,7 +39,7 @@ export class AdminDashboardComponent implements OnInit {
     console.log('Cart Mouse Leave...');
     this.isCartVisible=false;
   }
-  getTotalCost(){let sum=0; for(let item of this.itemsInCart){sum=sum+item.unitPrice;} return sum;}
+  getTotalCost(){let sum=0; for(let item of this.itemsInCart) {sum = sum + parseFloat(item.unitPrice);} sum=Math.ceil(sum*100)/100; return sum;}
   getItemQuantity(itemId) {let q=0;for(let item of this.itemsInCart){if(item.itemId==itemId)q++;}return q;}
 
 
@@ -49,7 +50,7 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminService.getuserdetails().subscribe(data=>{this.user=data;console.log(this.user);},error=>{console.log('Error in AdminDashboard',error);});
-    this.userService.getItemsInCart().subscribe(data=>{this.itemsInCart=data;},error=>{console.log('error from User dashboard getitemsinCart',error);});
+    this.userService.getItemsInCart().subscribe(data=>{this.itemsInCart=data;this.totalCost=this.getTotalCost();},error=>{console.log('error from User dashboard getitemsinCart',error);});
     this.renderer.listen('window','click',(e:Event) => {
       console.log('TESTING ---->',this.cartUpperElement,this.cartLowerElement);
       if(this.cartLowerElement)

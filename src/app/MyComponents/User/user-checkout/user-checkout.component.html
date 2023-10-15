@@ -34,7 +34,7 @@
                                 <table class="table table-borderless" style="text-align: left;">
                                     <tr style="vertical-align: middle;">
                                         <td width="125px">
-                                            <a href="/user/product/{{item.itemId}}"><img [src]="item.itemImageUrl" width="120px" height="100px"></a>
+                                            <a href="/user/product/{{item.itemId}}"><img [src]="item.itemImageUrl?.split('<::||||::>')[0]" width="120px" height="100px"></a>
                                         </td>
                                         <td style="font-weight: bold;">
                                             <div class="offset-1">

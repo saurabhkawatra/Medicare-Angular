@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { BasicServicesService } from 'src/app/Services/basic-services.service';
 import { UserServiceService } from 'src/app/Services/UserService/user-service.service';
 
+
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css']
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit,OnChanges {
 
   @Input('someInput') someInput:String;
   @ViewChild('cartUpperElement') cartUpperElement:ElementRef;
@@ -18,6 +19,7 @@ export class UserDashboardComponent implements OnInit {
   hzp:MatSnackBarHorizontalPosition;
   vtclp:MatSnackBarVerticalPosition;
   isCartVisible:boolean=false;
+  cartUpperElementWidth = 0;
   itemsInCart:any[];
   totalCost;
 
@@ -35,6 +37,9 @@ export class UserDashboardComponent implements OnInit {
   cartMouseEnter() {
     console.log('Cart Mouse Enter...');
     this.isCartVisible=true;
+    setTimeout(()=> {
+      this.setWidthtofCartUpperElement();
+    },0);
   }
   cartMouseLeave() {
     console.log('Cart Mouse Leave...');
@@ -46,11 +51,6 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserDetails().subscribe(data=>{
       this.user=data;
-          let fr=new FileReader();
-          fr.readAsDataURL(this.user.profilePicture);
-          fr.onloadend = ()=> {
-            this.user.profilePicture=fr.result;
-          }
     },error=>{console.log('error from user dashboard',error);});
     this.userService.getItemsInCart().subscribe(data=>{this.itemsInCart=data;this.totalCost=this.getTotalCost();},error=>{console.log('error from User dashboard getitemsinCart',error);});
     this.renderer.listen('window','click',(e:Event) => {
@@ -58,8 +58,24 @@ export class UserDashboardComponent implements OnInit {
         this.isCartVisible = false;
       }
     });
-    
   }
+
+  setWidthtofCartUpperElement() {
+    if(this.cartUpperElement) {
+        this.cartUpperElementWidth = this.cartUpperElement.nativeElement.offsetWidth;
+        console.log('if block=====================================================================',this.cartUpperElement.nativeElement.offsetWidth);
+    } else {
+      this.cartUpperElementWidth = null;
+      console.log('else block=====================================================================');
+    }
+
+    this.setCartLowerElementWidthEqualUpperElement();
+  }
+
+  setCartLowerElementWidthEqualUpperElement() {
+    this.cartLowerElement.nativeElement.style.width = this.cartUpperElementWidth + 'px';
+  }
+
 
   ngOnChanges() {
     this.ngOnInit();

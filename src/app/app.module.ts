@@ -46,10 +46,14 @@ import { EditItemComponent } from './MyComponents/Admin/edit-item/edit-item.comp
 import { AboutComponent } from './MyComponents/about/about.component';
 import { ProductDescriptionComponent } from './MyComponents/User/product-description/product-description.component';
 import { ManageUsersComponent } from './MyComponents/Admin/manage-users/manage-users.component';
-import { LoaderComponent } from './MyComponents/User/loader/loader.component';
+import { LoaderComponent } from './MyComponents/loader/loader.component';
 import { SafeHtmlPipePipe } from './Pipes/safe-html-pipe.pipe';
 import { PopUpDialogComponent } from './MyComponents/pop-up-dialog/pop-up-dialog.component';
 import { UserProfilePictureComponent } from './MyComponents/User/user-profile-picture/user-profile-picture.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -103,11 +107,22 @@ import { UserProfilePictureComponent } from './MyComponents/User/user-profile-pi
     MatSelectModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    MatBadgeModule
+    MatBadgeModule,
+    DragDropModule,
+    MatTableModule,
+    MatSortModule,
+    MatExpansionModule,
+    MatCheckboxModule
   ],
   providers: [BasicServicesService,MatSnackBar,
   {provide:HTTP_INTERCEPTORS, useClass: GlobalInterceptorInterceptor,multi:true},
-  AdminServiceService
+  AdminServiceService,
+  DistinctFilterPipe,
+  DistnctParaFilterPipe,
+  FilterByCompanyPipe,
+  FilterPipe,
+  SafeHtmlPipePipe,
+  SortPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -10,13 +10,14 @@
     <div class="col-4 offset-1" style="padding-top: 2%;">
         <div align="right" class="mb-3">
             <label for="formFile" style="margin-right: 20%;color:gray;" class="form-label">Upload New Image for the Product (Optional)</label>
-            <input #imgFileInputElement class="form-control" (change)="imageChange($event)" style="width: 80%;margin-left: 10%;" type="file">
+            <input #imgFileInputElement class="form-control" (change)="imageChange($event)" style="width: 80%;margin-left: 10%;" type="file" multiple>
         </div>
-        <div *ngIf="imageFile!=null||imgsrc!=null" align="right" class="mb-3">
-            <label for="formFile" style="margin-right: 60%;color:gray;" class="form-label">Image Preview</label>
-            <img class="form-control" [(src)]="imgsrc" style="width: 80%;margin-left: 10%;" type="file" />
+        <div *ngIf="imageFile!=null||imgsrc!=null" style="height: 40%; width: 80%; overflow: auto;">
+            <div align="right" class="mb-3" *ngFor="let img of imgsrc; index as i">
+                <label for="formFile" style="margin-right: 60%;color:gray;" class="form-label">Image Preview {{i+1}} of {{imgsrc.length}}</label>
+                <img class="form-control" [(src)]="imgsrc[i]" style="width: 80%;margin-left: 10%;height: 30vh;" type="file" />
+            </div>
         </div>
-
     </div>
 
     <div class="col-7">

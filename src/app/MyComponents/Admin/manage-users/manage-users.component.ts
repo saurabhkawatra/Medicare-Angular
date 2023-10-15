@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { MatTable } from '@angular/material/table';
 import { AdminServiceService } from 'src/app/Services/AdminService/admin-service.service';
+import { LoaderServiceService } from 'src/app/Services/CommonServices/loader-service.service';
 import { PopUpService } from 'src/app/Services/CommonServices/pop-up.service';
 
 @Component({
@@ -19,6 +21,9 @@ export class ManageUsersComponent implements OnInit {
   noOfResultsSizeOptions = [3,5,10,15,20,25,30,50];
   @ViewChild('tableBody' , {static:true}) tableBody:ElementRef;
 
+  // Material Table Testing
+  // @ViewChild(MatTable) table: MatTable<any>;
+
   getNoOfPurchasesMade(userId) {
     if(this.purchaseHistoryListAndUserIdMap.get(userId) != null)
     return this.purchaseHistoryListAndUserIdMap.get(userId).length;
@@ -34,7 +39,7 @@ export class ManageUsersComponent implements OnInit {
     let total = 0;
     this.purchaseHistoryListAndUserIdMap.get(userId).forEach(singlePurchaseHistory => {
       singlePurchaseHistory.itemForPurchaseHistoryList.forEach(item => {
-        total = total + item.unitPrice;        
+        total = total + item.unitPrice;
       });
     });
     return total;
@@ -97,7 +102,7 @@ export class ManageUsersComponent implements OnInit {
         this.highlightTheSearchKey(searchKey);
       }
     }
-    
+
   }
 
   highlightTheSearchKey(searchKey) {
@@ -124,7 +129,7 @@ export class ManageUsersComponent implements OnInit {
               // user[key] = user[key].replace(resultSet[i],'<span style="background-color: yellow;">'+resultSet[i]+'</span>');
               lastPosition = newPosition + 40 + resultSet[i].length + 7;
             }
-          }   
+          }
         }
       }
     }
@@ -144,7 +149,7 @@ export class ManageUsersComponent implements OnInit {
               }
             }
           }
-        } 
+        }
       }
   }
 
@@ -160,23 +165,27 @@ export class ManageUsersComponent implements OnInit {
       this.pageNo = pgNo;
   }
 
-  constructor(private adminService:AdminServiceService, private renderer:Renderer2, private popUpService: PopUpService) { }
+  constructor(private adminService:AdminServiceService, private renderer:Renderer2, private popUpService: PopUpService, private loaderService:LoaderServiceService) { }
 
   ngOnInit(): void {
-    this.popUpService.showPopUpBox('skadjlkasdkl');
+    this.popUpService.showPopUpBox('Admin Manage Users with User Access');
+    this.loaderService.setShowLoader(true);
     this.adminService.getallusers().subscribe(data => {
       this.UserList=data;
       this.UserList.forEach(user => {this.displayList.push(Object.assign({},user));});
+      // Material Table Testing
+      // this.table.renderRows();
       this.UserList.forEach(user => {
         this.adminService.getPurchaseHistoryListForUser(user.userId).subscribe(userPurchaseList => {
           this.purchaseHistoryListAndUserIdMap.set(user.userId,userPurchaseList);
+          this.loaderService.setShowLoader(false);
         },error => {
           console.log('Error Could Not Fetch Purchase History List for user id - ',user.userId,'Error in method getNoOfPurchasesMade');
         });
       });
     },error=>{console.log('error from manageusers comp onINit',error);
   });
-    
+
   }
 
 }

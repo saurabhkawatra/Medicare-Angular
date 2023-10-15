@@ -1,13 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'distnctParaFilter'
+  name: 'distnctParaFilter',
+  pure: false
 })
 export class DistnctParaFilterPipe implements PipeTransform {
 
   transform(itemList:any[],para:string): any {
       
-    if(itemList!=null) {
+    if(itemList!=null && itemList.length > 1) {
                 let result=itemList.filter((item)=>{
                   let check=itemList.indexOf(item);
                   for(let i=0;i<itemList.indexOf(item);i++) {
@@ -18,8 +19,9 @@ export class DistnctParaFilterPipe implements PipeTransform {
                         });
 
                 return result;  
+      } else {
+        return itemList;
       }
-    
   }
 
 }

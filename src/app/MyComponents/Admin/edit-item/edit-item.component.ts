@@ -15,8 +15,8 @@ export class EditItemComponent implements OnInit {
 
   itemName:string;unitPrice:number;itemCompany:string;itemCategory:string;itemQuantity;
   itemCategoryList;
-  imageFile:File;
-  imgsrc;
+  imageFile:File[];
+  imgsrc=[];
   categoryName;
 
   constructor(private activatedRoute:ActivatedRoute,private adminService:AdminServiceService,private router:Router) { 
@@ -36,10 +36,15 @@ export class EditItemComponent implements OnInit {
   imageChange(event) {
     console.log(event);
     console.log('File - ',event.target.files[0]);
-    this.imageFile=event.target.files[0];
-    let fileReader= new FileReader();
-    fileReader.onload=()=>{this.imgsrc=fileReader.result;}
-    fileReader.readAsDataURL(this.imageFile);
+    this.imageFile=event.target.files;
+    this.imgsrc=[];
+    let count = 0;
+    for(let imgFile of this.imageFile) {
+      let fileReader= new FileReader();
+      fileReader.onload=()=>{this.imgsrc.push(fileReader.result);}
+      fileReader.readAsDataURL(this.imageFile[count]);
+      count++;
+    }
 }
 
   ngOnInit(): void {
@@ -49,7 +54,7 @@ export class EditItemComponent implements OnInit {
     this.adminService.getitembyId(this.activatedRoute.snapshot.params['itemId']).subscribe(
       data=>{
         this.receivedItem=data;
-        this.imgsrc=this.receivedItem.itemImageUrl;
+        this.imgsrc=this.receivedItem.itemImageUrl.split('<::||||::>');
         this.uploadItem=this.receivedItem; 
       },
       

@@ -18,8 +18,8 @@ export class AdminServiceService {
     return this.http.post(this.baseURL+'/getAllActivatedItems',null);
   }
 
-  getAllItems() {
-    return this.http.post(this.baseURL+'/getAllItems',null);
+  getAllItems():Observable<any[]> {
+    return this.http.post<any[]>(this.baseURL+'/getAllItems',null);
   }
 
   getuserdetails(){
@@ -34,12 +34,14 @@ export class AdminServiceService {
     return this.http.post(this.baseURL+'/getAllCategories',null);
   }
 
-  addNewItem(item,image:File) {
+  addNewItem(item,imageFileArray:File[]) {
         let formData= new FormData();
-        if(image!=null)
+        if(imageFileArray!=null)
         {
-          formData.append('imageFile',image,image.name);
-          formData.append('itemImageName',image.name);
+          for(let image of imageFileArray) {
+            formData.append('imageFiles',image,image.name);
+            formData.append('itemImageName',image.name);
+          }
         }
         formData.append('itemName',item.itemName);
         formData.append('itemCompany',item.itemCompany);
@@ -58,13 +60,15 @@ export class AdminServiceService {
     return this.http.post(this.baseURL+'/getitembyId/'+itemId,null);
   }
 
-  updateItem(item,image:File) {
+  updateItem(item,imageFileArray:File[]) {
 
     let formData= new FormData();
-        if(image!=null)
+        if(imageFileArray!=null)
         {
-          formData.append('imageFile',image,image.name);
-          formData.append('itemImageName',image.name);
+          for(let image of imageFileArray) {
+            formData.append('imageFiles',image,image.name);
+            formData.append('itemImageName',image.name);
+          }
         }
         formData.append('itemId',item.itemId);
         formData.append('itemName',item.itemName);

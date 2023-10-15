@@ -1,52 +1,133 @@
 <!-- <app-user-dashboard *ngIf="dashboardToggle"></app-user-dashboard> -->
-<app-user-dashboard #userDashboard [someInput]="giveSomeInput"></app-user-dashboard>
+<app-user-dashboard style="top:0px;position: fixed;background-color: white;z-index: 300;width: 100%;" #userDashboard [someInput]="giveSomeInput"></app-user-dashboard>
 
-<div class="">
+<div class="" style="margin-top: 11%;">
         <div class="row">
                     <div class="col-3" style="border-right: 1px solid lightgray;">
-
-                        <div align="left" style="font-size: 0.7rem;margin-left: 10%;">
-                                    <p>*Filter Items based on category*</p>
-                                    <select [(ngModel)]="filterCriterea"  style="width:70%;" class="form-select">
-                                        <option value="">Category (Default No Filter)</option>
-                                        <option *ngFor="let item of itemList| distinctFilter |sort :'itemCategory':'asc'" [value]="item.itemCategory">{{item.itemCategory}}</option>
+                        <div style="position: fixed;width: 24%;z-index: 300;overflow-y: auto; height: 70vh" [ngStyle]="{'top.px':dashBoardHeight-10}" >
+                            <hr>
+                            <div align="left" style="font-size: 0.7rem;margin: 5%;">
+                                      <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <b>Filter based on Category</b>
+                                          </mat-panel-title>
+                                          <!-- <mat-panel-description class="text-right">
+                                              &#x25BC;
+                                          </mat-panel-description> -->
+                                        </mat-expansion-panel-header>
+                                        <ul style="list-style-type:none;">
+                                          <li>
+                                            <mat-checkbox #categorySelectAll (change)="onCategorySelectAllClick($event.checked)">
+                                              Select All
+                                            </mat-checkbox>
+                                          </li>
+                                          <li *ngFor="let item of itemList| distinctFilter |sort :'itemCategory':'asc'">
+                                            <mat-checkbox #categoryCheckbox (change)="onCategoryCheckBoxChange(item.itemCategory, $event)"
+                                                          color="primary">{{item.itemCategory}}
+                                            </mat-checkbox>
+                                          </li>
+                                        </ul>
+                                      </mat-expansion-panel>
+                            </div>
+                            <hr>
+                            <div align="left" style="font-size: 0.7rem;margin: 5%;">
+                                      <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <b>Filter based on Company</b>
+                                          </mat-panel-title>
+                                          <!-- <mat-panel-description class="text-right">
+                                              &#x25BC;
+                                          </mat-panel-description> -->
+                                        </mat-expansion-panel-header>
+                                        <ul style="list-style-type:none;">
+                                          <li>
+                                            <mat-checkbox #companySelectAll (change)="onCompanySelectAllClick($event.checked)">
+                                              Select All
+                                            </mat-checkbox>
+                                          </li>
+                                          <li *ngFor="let item of itemList | distnctParaFilter:'itemCompany' | sort :'itemCompany':'asc'">
+                                            <mat-checkbox #companyCheckbox (change)="onCompanyCheckBoxChange(item.itemCompany, $event)"
+                                                          color="primary">{{item.itemCompany}}
+                                            </mat-checkbox>
+                                          </li>
+                                        </ul>
+                                      </mat-expansion-panel>
+                            </div>
+                            <hr>
+                            <div align="left" style="font-size: 0.7rem;margin-left: 10%;">
+                                        <p>*Filter Items based on category*</p>
+                                        <select [(ngModel)]="filterCritereaSingleSelect"  style="width:70%;" class="form-select">
+                                            <option value="">Category (Default No Filter)</option>
+                                            <option *ngFor="let item of itemList| distinctFilter |sort :'itemCategory':'asc'" [value]="item.itemCategory">{{item.itemCategory}}</option>
+                                        </select>
+                            </div>
+                            <hr>
+                            <div align="left" style="font-size: 0.7rem;margin-left: 10%;">
+                                        <p>*Filter Items based on company*</p>
+                                        <select [(ngModel)]="fwCompany"  style="width:70%;" class="form-select">
+                                            <option value="">Company (Default No Filter)</option>
+                                            <option *ngFor="let item of itemList| distnctParaFilter:'itemCompany' | sort :'itemCompany':'asc'" [value]="item.itemCompany">{{item.itemCompany}}</option>
+                                        </select>
+                            </div>
+                            <hr>
+                            <div class="container">
+                                    <p style="font-size: 0.7rem;">*Sort Items*</p>
+                                    <select [(ngModel)]="sortCriterea"  style="width:70%;" class="form-select">
+                                        <option value="None" selected>None</option>
+                                        <!-- <option *ngFor="let key in itemList[0]" [value]="key">{{key}}</option> -->
+                                        <option value="itemId" >Item Id</option>
+                                        <option value="unitPrice">Price</option>
+                                        <option value="itemName">Item Name</option>
+                                        <option value="itemCompany">Company Name</option>
+                                        <option value="itemCategory">Category Name</option>
                                     </select>
-                        </div>
-                        <hr>
-                        <div align="left" style="font-size: 0.7rem;margin-left: 10%;">
-                                    <p>*Filter Items based on category*</p>
-                                    <select [(ngModel)]="fwCompany"  style="width:70%;" class="form-select">
-                                        <option value="">Company (Default No Filter)</option>
-                                        <option *ngFor="let item of itemList| distnctParaFilter:'itemCompany' | sort :'itemCompany':'asc'" [value]="item.itemCompany">{{item.itemCompany}}</option>
+                                    <select [(ngModel)]="sortOrder" style="width:70%;" class="form-select">
+                                        <option value="asc">Ascending</option>
+                                        <option value="des">Descending</option>
                                     </select>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-9" style="background-color: aliceblue;">
-                            <table class="table table-borderless" style="width: fit-content;">
+                            <div *ngIf="itemList == null || (itemList|filter:[filterCritereaSingleSelect]|filterByCompany:fwCompany).length == 0" style="margin-top: 5%;">
+                                <h1 class="text-danger" style="text-align: center;">
+                                    <b>No Items Available</b>
+                                </h1>
+                            </div>
+                            <!-- <table class="table table-borderless" style="width: fit-content;">
                                     <tbody>
-                                    <ng-template ngFor let-item [ngForOf]="itemList|filter:filterCriterea|filterByCompany:fwCompany" let-i="index">
+                                        <ng-template ngFor let-item [ngForOf]="itemList|filter:filterCriterea|filterByCompany:fwCompany|sort:sortCriterea:sortOrder" let-i="index">
 
-                                        <tr>
-                                        <ng-template [ngIf]="i%3==0">
-                                                        <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]!=null">
-                                                            <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]"></app-item-card></td>
-                                                        </ng-template>
+                                            <tr>
+                                            <ng-template [ngIf]="i%3==0">
+                                                            <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i]!=null">
+                                                                <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany|sort:sortCriterea:sortOrder)[i]"></app-item-card></td>
+                                                            </ng-template>
 
-                                                        <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]!=null">
-                                                            <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]"></app-item-card></td>
-                                                        </ng-template>
+                                                            <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+1]!=null">
+                                                                <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany|sort:sortCriterea:sortOrder)[i+1]"></app-item-card></td>
+                                                            </ng-template>
 
-                                                        <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]!=null">
-                                                            <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]"></app-item-card></td>
-                                                        </ng-template>
+                                                            <ng-template [ngIf]="(itemList|filter:filterCriterea|filterByCompany:fwCompany)[i+2]!=null">
+                                                                <td><app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="(itemList|filter:filterCriterea|filterByCompany:fwCompany|sort:sortCriterea:sortOrder)[i+2]"></app-item-card></td>
+                                                            </ng-template>
+                                            </ng-template>
+                                            </tr>
+
                                         </ng-template>
-                                        </tr>
 
-                                    </ng-template>
-                                    
                                     </tbody>
-                            </table>
+                            </table> -->
+                            <div style="margin-top: 2%;">
+                                <div class="row">
+                                    <div class="col" *ngFor="let item of (itemList | filter:filterMultiSelectCheckbox | filter:[filterCritereaSingleSelect] | filterByCompany:fwCompany | filterByCompany : filterMultiSelectCompanyCheckbox | sort:sortCriterea:sortOrder);index as i;" style="max-width: fit-content;">
+                                        <app-item-card [itemsInCart]="dashboard.itemsInCart" (addButtonClickOnItemCard)="toggleDashboard($event)" [item]="item"></app-item-card>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
         </div>
 </div>

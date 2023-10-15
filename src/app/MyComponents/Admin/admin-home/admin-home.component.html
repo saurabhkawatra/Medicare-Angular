@@ -54,11 +54,13 @@
                                        </mat-form-field>
                                        <div align="left" class="mb-3">
                                           <label for="formFile" style="margin-left: 10%;color:gray;" class="form-label">Upload Image for the Product (Optional)</label>
-                                          <input #imgFileInputElement class="form-control" (change)="imageChange($event)" style="width: 80%;margin-left: 10%;" type="file">
+                                          <input #imgFileInputElement class="form-control" (change)="imageChange($event)" style="width: 80%;margin-left: 10%;" type="file" multiple>
                                        </div>
-                                       <div *ngIf="imageFile!=null" align="left" class="mb-3">
-                                          <label for="formFile" style="margin-left: 10%;color:gray;" class="form-label">Image Preview</label>
-                                          <img class="form-control" [(src)]="imgsrc" style="width: 80%;margin-left: 10%;" type="file" />
+                                       <div *ngIf="imageFiles!=null">
+                                          <div align="left" class="mb-3" *ngFor="let img of imgsrc; index as i">
+                                             <label for="formFile" style="margin-left: 10%;color:gray;" class="form-label"><b>Image Preview {{i+1}} of {{imgsrc.length}}</b></label>
+                                             <img class="form-control" [(src)]="imgsrc[i]" style="width: 80%;margin-left: 10%;" type="file" />
+                                          </div>
                                        </div>
                                        <br>
                                        <button type="submit" mat-raised-button color="primary">Add Item</button>

@@ -9,6 +9,7 @@ import { UserServiceService } from 'src/app/Services/UserService/user-service.se
 })
 export class UserProfilePictureComponent implements OnInit {
 
+  currentProfileImage;
   inputImage;
   inputImageFile: File;
   height = 450;
@@ -34,6 +35,9 @@ export class UserProfilePictureComponent implements OnInit {
     .subscribe(response => {
       this.popUp.showPopUpBox(response.message, 3000);
       this.dashboardRandomInput = Math.random()*1000 + '';
+      this.inputImage = null;
+      this.inputImageFile = null;
+      this.ngOnInit();
     },error => {
       console.log('Error from user profile component', error);
     });
@@ -42,11 +46,7 @@ export class UserProfilePictureComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserDetails().subscribe(userData => {
       this.user=userData;
-      let fr = new FileReader();
-      fr.readAsDataURL(this.user.profilePicture);
-      fr.onloadend = () => {
-       this.inputImage = fr.result;
-      }
+      this.currentProfileImage = this.user.profilePicture;
     }, error => console.log('Error userProfile Component',error));
   }
 

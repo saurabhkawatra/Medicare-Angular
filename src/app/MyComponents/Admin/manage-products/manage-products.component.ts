@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminServiceService } from 'src/app/Services/AdminService/admin-service.service';
+import { LoaderServiceService } from 'src/app/Services/CommonServices/loader-service.service';
 
 @Component({
   selector: 'app-manage-products',
@@ -10,7 +11,7 @@ import { AdminServiceService } from 'src/app/Services/AdminService/admin-service
 })
 export class ManageProductsComponent implements OnInit {
     
-  itemList:any=[];
+  itemList:any[]=[];
   slideValue;
   filterCriterea='';
   inputSortCriterea='itemId';
@@ -29,7 +30,7 @@ export class ManageProductsComponent implements OnInit {
   hzp:MatSnackBarHorizontalPosition;
   vrtlp:MatSnackBarVerticalPosition;
 
-  constructor(private router:Router,private adminService:AdminServiceService,private snkbar:MatSnackBar) { }
+  constructor(private router:Router,private adminService:AdminServiceService,private snkbar:MatSnackBar, private loaderService: LoaderServiceService) { }
 
   statusCheck(status:string) {
       if(status=='active')
@@ -71,10 +72,17 @@ export class ManageProductsComponent implements OnInit {
         this.router.navigateByUrl('/admin/manageProducts');
 
   }
-  
+
+  returnActivatedProductList() {
+    return this.itemList.filter((item) => item.itemStatus == 'active');
+  }
+  returnDeActivatedProductList() {
+    return this.itemList.filter((item) => item.itemStatus == 'deactivated');
+  }
   ngOnInit(): void {
     window.scrollTo(0,0);
-    this.adminService.getAllItems().subscribe(data=>{this.itemList=data;console.log(data);},error=>{console.log('error in AdminHomeComponent service call',error)});
+    this.loaderService.setShowLoader(true);
+    this.adminService.getAllItems().subscribe(data=>{this.itemList=data;this.loaderService.setShowLoader(false);console.log(data);},error=>{console.log('error in AdminHomeComponent service call',error)});
   }
 
 }

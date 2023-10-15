@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderServiceService } from 'src/app/Services/CommonServices/loader-service.service';
 import { UserServiceService } from 'src/app/Services/UserService/user-service.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class UserPurchaseHistoryComponent implements OnInit {
   selectedSortOption;
   selectedOrder = 'asc';
   
-  constructor(private userService:UserServiceService) { }
+  constructor(private userService:UserServiceService, private loaderService: LoaderServiceService) { }
 
   getDuplicateItemQuantity(itemId,index) {
     let count=0;
@@ -29,7 +30,8 @@ export class UserPurchaseHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.userService.getListOfPurchases().subscribe(data=>{this.listOfPurchases=data;},error=>{console.log('error from user purchase history Comp',error);});
+      this.loaderService.setShowLoader(true);
+      this.userService.getListOfPurchases().subscribe(data=>{this.listOfPurchases=data;this.loaderService.setShowLoader(false);},error=>{console.log('error from user purchase history Comp',error);});
   }
 
 }

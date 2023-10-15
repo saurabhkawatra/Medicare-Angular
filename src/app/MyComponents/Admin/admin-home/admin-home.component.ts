@@ -14,8 +14,8 @@ export class AdminHomeComponent implements OnInit {
   panelOpenState=false;
   itemName:string;unitPrice:number;itemCompany:string;itemCategory:string;itemQuantity;
   itemCategoryList;
-  imageFile:File;
-  imgsrc;
+  imageFiles:File[];
+  imgsrc=[];
   categoryName;
   @ViewChild('addItemForm') addItemForm:NgForm;
   @ViewChild('imgFileInputElement') imgFileInputElement:ElementRef;
@@ -44,13 +44,13 @@ addItemClick() {
   let obj={"itemName":this.itemName,"unitPrice":this.unitPrice,"itemCompany":this.itemCompany,"itemCategory":this.itemCategory,"itemQuantity":this.itemQuantity}
   this.modaltogglebtn.nativeElement.click();
   console.log('Add new Item Click obj=',obj);
-  this.adminService.addNewItem(obj,this.imageFile).subscribe(
+  this.adminService.addNewItem(obj,this.imageFiles).subscribe(
     data=>{
             console.log(data['message']);
             this.addItemForm.resetForm();
             this.imgFileInputElement.nativeElement.value='';
-            this.imageFile=null;
-            this.imgsrc='';
+            this.imageFiles=null;
+            this.imgsrc=[];
             window.setTimeout(()=>{
               this.modaltogglebtn.nativeElement.click();
               this.snkbar.open(data['message'],'OK',{horizontalPosition:'center',verticalPosition:'bottom',duration:4000});
@@ -62,10 +62,15 @@ addItemClick() {
 imageChange(event) {
     console.log(event);
     console.log('File - ',event.target.files[0]);
-    this.imageFile=event.target.files[0];
-    let fileReader= new FileReader();
-    fileReader.onload=()=>{this.imgsrc=fileReader.result;}
-    fileReader.readAsDataURL(this.imageFile);
+    this.imageFiles=event.target.files;
+    this.imgsrc=[];
+    let count=0;
+    for(let img of this.imageFiles) {
+      let fileReader= new FileReader();
+      fileReader.onload=()=>{this.imgsrc.push(fileReader.result);}
+      fileReader.readAsDataURL(this.imageFiles[count]);
+      count++;
+    }
 }
 
   ngOnInit(): void {

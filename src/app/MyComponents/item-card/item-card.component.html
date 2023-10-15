@@ -47,7 +47,17 @@
 
         <div [ngClass]="getDuplicateItemQuantityInCart(item.itemId)==0 ?'card':'cardlong'"  style="box-shadow: 0px 0px 10px 3px grey;margin-left: 0.1rem;margin-right: 0.1rem;">
 
-            <a [routerLink]="['/user/product/',item.itemId]"><img src="{{item.itemImageUrl}}" alt=""></a>
+            <!-- <a [routerLink]="['/user/product/',item.itemId]"><img src="{{item.itemImageUrl}}" alt=""></a> -->
+            <div style="position: relative;">
+                <img *ngIf="item.itemImageUrl" src="{{item.itemImageUrl? item.itemImageUrl?.split('<::||||::>')[currentImageNo] : 'assets/Basic Images/No-Image-Default-Medicine.jpg'}}" onerror="this.src='assets/Basic Images/No-Image-Default-Medicine.jpg'" alt="">
+                <img *ngIf="!item.itemImageUrl" src="{{ 'assets/Basic Images/No-Image-Default-Medicine.jpg' }}" onerror="this.src='assets/Basic Images/No-Image-Default-Medicine.jpg'" alt="">
+                <div *ngIf="isMultipleImagesExist() && currentImageNo!=0" style="position: absolute;top: 47%;left: 1%; font-size: 30px; font-weight: bold;">
+                    <button class="btn-outline-primary rounded-circle" (click)="previousImageClick()" style="padding: 10px;"><</button>
+                </div>
+                <div *ngIf="isMultipleImagesExist() && currentImageNo!=item.itemImageUrl?.split('<::||||::>').length-1" style="position: absolute;top: 47%; right: 1%; font-size: 30px; font-weight: bold;">
+                    <button class="btn-outline-primary rounded-circle" (click)="nextImageClick()" style="padding: 10px;">></button>
+                </div>
+            </div>
             <h5><a [routerLink]="['/user/product/',item.itemId]">{{item.itemName}}</a></h5>
             <hr>
             <div align="left">
@@ -57,7 +67,7 @@
             </div>
             <div align="left">
             <button *ngIf="getDuplicateItemQuantityInCart(item.itemId)==0" mat-raised-button color="primary" (click)="addToCart(item)">Add to Cart</button>
-                    <table style="width: fit-content;box-shadow: 0px 0px 10px 2px grey;background-color: white;" class="table table-bordered" *ngIf="getDuplicateItemQuantityInCart(item.itemId)>0">
+                    <table *ngIf="getDuplicateItemQuantityInCart(item.itemId)>0" style="width: fit-content;box-shadow: 0px 0px 10px 2px grey;background-color: white;" class="table table-bordered">
                         <tbody>
                             <tr>
                                 <td><button class="btn" (click)="decreaseItemQuan(item,item.itemId)"><span>&#9664;</span></button></td>

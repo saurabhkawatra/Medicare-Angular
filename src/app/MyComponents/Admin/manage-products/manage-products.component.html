@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <h1 style="font-size: 50px;margin-top: 1.5em;margin-bottom: 1.5em;">Manage Products</h1>
+    <h1 style="font-size: 50px;margin-top: 1.5em;margin-bottom: 1.5em;text-align: center;color: rgb(66, 83, 80);font-family: monospace;font-style: oblique;text-shadow: 0px 2px 5px;"><b>Manage Products</b></h1>
         <div style="left:10%;top:30%;" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                     <div class="modal-body" >
@@ -14,14 +14,30 @@
         </div>
          <button hidden #togglebtn type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Launch demo modal
-        </button> 
+        </button>
     <mat-progress-spinner hidden mode="indeterminate" data-backdrop="static" style="z-index:999;left:50%;top:50%;position: absolute;"></mat-progress-spinner>
                 
             <div class="container" style="font-size: 1.5em;text-align: right;">
                 <div  class="row">
+                    <div class="col">
+                        <table class="table table-bordered text-secondary" border="2px">
+                            <thead>
+                                <th>No of Activated Products</th>
+                                <th>No of Deactivated Products</th>
+                                <th>Total No of Products</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{returnActivatedProductList().length}}</td>
+                                    <td>{{returnDeActivatedProductList().length}}</td>
+                                    <td>{{itemList.length}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="col" align="right" style="padding: 1.5rem;padding-top: 0.5rem;font-weight: bold;">
                         <p>Filter Items based on category</p>
-                        <select [(ngModel)]="filterCriterea"  style="width:20%;" class="form-select">
+                        <select [(ngModel)]="filterCriterea"  style="min-width:20%;max-width: 35%;" class="form-select">
                             <option value="">None</option>
                             <option *ngFor="let item of itemList | distinctFilter |sort :'itemCategory':'asc'" [value]="item.itemCategory">{{item.itemCategory}}</option>
                         </select>        
@@ -30,6 +46,7 @@
             </div>
     <table class="table table-bordered">
         <thead class="sticky-top bg-light" style="vertical-align: middle;text-align: center;font-weight: bold;">
+            <th style="border: none;">Sort :: {{inputSortCriterea}} :: {{inputSortOrder=='asc'?'Ascending':inputSortOrder=='des'?'Descending':''}}</th>
             <td (click)="sortingClick('itemId')"><span class="btn"><span style="color:black" *ngIf="cfitid=='blue'&&inputSortOrder=='asc'">&#9650;</span><span style="color:black" *ngIf="cfitid=='blue'&&inputSortOrder=='des'">&#x25BC;</span><span [style.color]="cfitid">Id</span><br><span style="font-size: 1.5rem;">&#8593;&#8595;</span></span></td>
             <td></td>
             <td (click)="sortingClick('itemName')"><span class="btn"><span style="color:black" *ngIf="cfitname=='blue'&&inputSortOrder=='asc'">&#9650;</span><span style="color:black" *ngIf="cfitname=='blue'&&inputSortOrder=='des'">&#x25BC;</span><span [style.color]="cfitname">Item Name</span><br><span style="font-size: 1.5rem;">&#8593;&#8595;</span></span></td>
@@ -43,8 +60,9 @@
 
         <tbody style="vertical-align: middle;text-align: center;">
             <tr *ngFor="let i of itemList|filter :filterCriterea|sort : inputSortCriterea : inputSortOrder;let x=index;">
+                <th style="border: none;"></th>
                 <td><a style="text-decoration: none;" [routerLink]="'/user/product/'+i.itemId">{{i.itemId}}</a></td>
-                <td><a [routerLink]="'/user/product/'+i.itemId"><img src="{{i.itemImageUrl}}" style="width:200px;height: 100px;"></a></td>
+                <td><a [routerLink]="'/user/product/'+i.itemId"><img src="{{i.itemImageUrl?.split('<::||||::>')[0]}}" style="width:200px;height: 100px;"></a></td>
                 <td><a [routerLink]="'/user/product/'+i.itemId">{{i.itemName}}</a></td>
                 <td>{{i.itemCompany}}</td>
                 <td>{{i.itemCategory}}</td>
